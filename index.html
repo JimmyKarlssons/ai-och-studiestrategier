@@ -1,0 +1,2627 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>
+:root{color-scheme:light dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>AI och studiestrategier</title>
+<style>
+/* ============================================================
+   AI och studiestrategier — MAGA51, Karlstads universitet
+   Helt självgående material. Inga externa anrop (GDPR).
+   Färgerna är hämtade ur kursens egna R-figurer (Okabe–Ito).
+   ============================================================ */
+
+:root{
+  --bg:#F5F7F9;
+  --surface:#FFFFFF;
+  --surface-2:#E9EDF1;
+  --surface-3:#DFE4EA;
+  --ink:#14181E;
+  --ink-2:#44525F;
+  --ink-3:#6D7985;
+  --rule:#D8DDE4;
+  --rule-2:#BFC7D1;
+  --slate:#3F566E;
+  --slate-wash:rgba(63,86,110,.12);
+  --blue:#0B6FA4;
+  --blue-wash:rgba(11,111,164,.16);
+  --orange:#C25100;
+  --orange-soft:#E2924E;
+  --orange-wash:rgba(194,81,0,.13);
+  --good:#2C6B4C;
+  --good-wash:rgba(44,107,76,.12);
+  --warn:#8E6100;
+  --bad:#A33119;
+  --bad-wash:rgba(163,49,25,.11);
+  --shadow:0 1px 2px rgba(20,24,30,.06),0 6px 20px rgba(20,24,30,.05);
+
+  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,"Palatino Linotype",Palatino,Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:Menlo,"SF Mono",Consolas,"DejaVu Sans Mono","Liberation Mono",monospace;
+  --math:Cambria,"Times New Roman",Times,serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#11141A;
+    --surface:#191D25;
+    --surface-2:#222833;
+    --surface-3:#2B323E;
+    --ink:#E9EDF2;
+    --ink-2:#B0BBC7;
+    --ink-3:#848F9D;
+    --rule:#2A313C;
+    --rule-2:#3A4350;
+    --slate:#9DB2C8;
+    --slate-wash:rgba(157,178,200,.16);
+    --blue:#55B2E6;
+    --blue-wash:rgba(85,178,230,.18);
+    --orange:#F0903E;
+    --orange-soft:#B06526;
+    --orange-wash:rgba(240,144,62,.16);
+    --good:#63C08F;
+    --good-wash:rgba(99,192,143,.15);
+    --warn:#D7A527;
+    --bad:#E97C66;
+    --bad-wash:rgba(233,124,102,.15);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 22px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11141A;
+  --surface:#191D25;
+  --surface-2:#222833;
+  --surface-3:#2B323E;
+  --ink:#E9EDF2;
+  --ink-2:#B0BBC7;
+  --ink-3:#848F9D;
+  --rule:#2A313C;
+  --rule-2:#3A4350;
+  --slate:#9DB2C8;
+  --slate-wash:rgba(157,178,200,.16);
+  --blue:#55B2E6;
+  --blue-wash:rgba(85,178,230,.18);
+  --orange:#F0903E;
+  --orange-soft:#B06526;
+  --orange-wash:rgba(240,144,62,.16);
+  --good:#63C08F;
+  --good-wash:rgba(99,192,143,.15);
+  --warn:#D7A527;
+  --bad:#E97C66;
+  --bad-wash:rgba(233,124,102,.15);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 22px rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-text-size-adjust:100%;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%}
+[hidden]{display:none!important}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1000px;margin:0 auto;padding-inline:20px}
+.col{max-width:680px;margin-inline:auto}
+.col > * + *{margin-top:1em}
+p{margin:0}
+.col p + p{margin-top:.85em}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+  background:var(--bg);
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(1.6) blur(10px);
+  -webkit-backdrop-filter:saturate(1.6) blur(10px);
+  border-bottom:1px solid var(--rule);
+}
+.topbar-in{
+  max-width:1000px;margin:0 auto;padding:8px 20px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.brand{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);white-space:nowrap;
+}
+.navlinks{display:flex;gap:2px;flex-wrap:wrap;margin-inline-start:auto}
+.navlinks a{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;
+  color:var(--ink-2);text-decoration:none;padding:5px 9px;border-radius:5px;white-space:nowrap;
+}
+.navlinks a:hover{background:var(--surface-2);color:var(--ink)}
+.navlinks a.on{background:var(--ink);color:var(--surface)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--orange);width:0}
+
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(38px,7vw,76px) 26px}
+.eyebrow{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--orange);margin:0 0 14px;
+}
+h1{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(34px,6.4vw,58px);line-height:1.05;letter-spacing:-.02em;
+  margin:0;text-wrap:balance;
+}
+.standfirst{
+  font-size:clamp(18px,2.4vw,21px);line-height:1.5;color:var(--ink-2);
+  margin-top:18px;max-width:40ch;
+}
+.herometa{
+  margin-top:28px;padding-top:16px;border-top:1px solid var(--rule);
+  display:flex;gap:26px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;color:var(--ink-3);
+}
+
+/* ---------- sections ---------- */
+.part{padding-block:clamp(40px,6vw,72px);border-top:1px solid var(--rule)}
+.parthead{max-width:680px;margin-inline:auto;margin-bottom:34px}
+.partnum{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);display:block;margin-bottom:10px;
+}
+.partnum b{color:var(--orange);font-weight:600}
+h2{
+  font-family:var(--serif);font-weight:600;font-size:clamp(27px,4.2vw,40px);
+  line-height:1.12;letter-spacing:-.015em;margin:0;text-wrap:balance;
+}
+.partsub{color:var(--ink-2);font-size:18px;margin-top:12px;max-width:46ch}
+h3{
+  font-family:var(--serif);font-weight:600;font-size:22px;line-height:1.25;
+  margin:2.1em 0 .5em;letter-spacing:-.008em;text-wrap:balance;
+}
+h4{
+  font-family:var(--mono);font-weight:600;font-size:12px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-3);margin:1.8em 0 .5em;
+}
+.lede{font-size:19px;line-height:1.55;color:var(--ink)}
+em{font-style:italic}
+strong{font-weight:600}
+a{color:var(--orange)}
+.mono{font-family:var(--mono);font-size:.92em}
+.math{font-family:var(--math);font-style:italic}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+ul,ol{margin:0;padding-inline-start:1.25em}
+li{margin:.4em 0}
+li::marker{color:var(--ink-3)}
+
+/* ---------- figure / panel ---------- */
+.panel{
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+  padding:20px;margin-block:26px;box-shadow:var(--shadow);
+}
+.panel.flush{padding:18px 14px}
+.panel-head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:4px}
+.panel-title{font-family:var(--serif);font-weight:600;font-size:17px;letter-spacing:-.005em}
+.panel-kicker{
+  font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);
+}
+.caption{
+  font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink-2);
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);
+}
+.caption b{color:var(--ink)}
+.source{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin-top:8px;letter-spacing:.01em}
+figure{margin:0}
+svg{display:block;max-width:100%;height:auto;overflow:visible}
+svg text{font-family:var(--mono);fill:var(--ink-2)}
+
+/* ---------- controls ---------- */
+.btn{
+  font-family:var(--sans);font-size:14px;font-weight:500;
+  background:var(--surface);color:var(--ink);
+  border:1px solid var(--rule-2);border-radius:7px;padding:8px 14px;cursor:pointer;
+  transition:background .12s,border-color .12s,color .12s;line-height:1.3;
+}
+.btn:hover{background:var(--surface-2)}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.btn.primary{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.btn.primary:hover{opacity:.88}
+.btn.on{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--rule);border-radius:8px;padding:3px;gap:3px}
+.seg button{
+  font-family:var(--mono);font-size:12px;letter-spacing:.03em;
+  background:none;border:0;border-radius:5px;padding:6px 12px;cursor:pointer;color:var(--ink-2);
+}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+
+/* ---------- callouts ---------- */
+.note{
+  border-inline-start:3px solid var(--rule-2);padding:2px 0 2px 16px;
+  color:var(--ink-2);font-size:16px;
+}
+.note.warn{border-color:var(--warn)}
+.note.key{border-color:var(--orange);color:var(--ink)}
+.box{
+  background:var(--surface-2);border-radius:9px;padding:18px 20px;margin-block:22px;
+  font-size:16px;
+}
+.box h4{margin-top:0}
+.box.key{background:var(--orange-wash)}
+.box.method{background:var(--surface-2);border:1px dashed var(--rule-2)}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:9px;overflow:hidden;margin-block:24px}
+.stat{background:var(--surface);padding:15px 16px}
+.stat .v{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--ink);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat .v.up{color:var(--blue)}
+.stat .v.down{color:var(--orange)}
+.stat .k{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin-top:5px;line-height:1.35}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto;margin-block:22px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:420px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:500;
+   border-bottom:1px solid var(--rule-2)}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.hi td{background:var(--orange-wash)}
+tbody tr:last-child td{border-bottom:0}
+
+/* ---------- interactive blocks ---------- */
+.ix{
+  background:var(--surface);border:1px solid var(--rule-2);border-radius:11px;
+  margin-block:30px;overflow:hidden;box-shadow:var(--shadow);
+}
+.ix-head{
+  padding:14px 20px;border-bottom:1px solid var(--rule);
+  display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;background:var(--surface-2);
+}
+.ix-tag{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--surface);background:var(--orange);padding:3px 7px;border-radius:4px;
+}
+.ix-title{font-family:var(--serif);font-weight:600;font-size:17px}
+.ix-body{padding:20px}
+.ix-body > * + *{margin-top:14px}
+.q{font-size:17px;line-height:1.45}
+.opts{display:grid;gap:8px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{
+  font-family:var(--sans);font-size:14.5px;text-align:left;
+  background:var(--surface);border:1px solid var(--rule-2);border-radius:8px;
+  padding:11px 14px;cursor:pointer;color:var(--ink);line-height:1.4;
+  display:flex;gap:10px;align-items:flex-start;transition:border-color .12s,background .12s;
+}
+.opt:hover:not(:disabled){border-color:var(--ink-3)}
+.opt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.opt .mark{
+  font-family:var(--mono);font-size:11px;flex:0 0 auto;width:18px;height:18px;border-radius:4px;
+  background:var(--surface-2);color:var(--ink-3);display:grid;place-items:center;margin-top:1px;
+}
+.opt.correct{border-color:var(--good);background:var(--good-wash)}
+.opt.correct .mark{background:var(--good);color:#fff}
+.opt.wrong{border-color:var(--bad);background:var(--bad-wash)}
+.opt.wrong .mark{background:var(--bad);color:#fff}
+.opt:disabled{cursor:default;opacity:1}
+.opt.dim{opacity:.5}
+.fb{
+  font-family:var(--sans);font-size:14.5px;line-height:1.55;padding:13px 15px;border-radius:8px;
+  background:var(--surface-2);color:var(--ink);
+}
+.fb.good{background:var(--good-wash)}
+.fb.bad{background:var(--bad-wash)}
+.fb b{font-weight:600}
+.ix-foot{
+  padding:12px 20px;border-top:1px solid var(--rule);background:var(--surface-2);
+  font-family:var(--mono);font-size:11.5px;color:var(--ink-3);
+  display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+}
+
+/* ---------- legend ---------- */
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--ink-2);margin-bottom:6px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.swatch{width:13px;height:3px;border-radius:2px;display:inline-block}
+.swatch.d{height:0;border-top:2px dashed currentColor;width:14px}
+
+/* ---------- readout ---------- */
+.readout{
+  font-family:var(--mono);font-size:12.5px;color:var(--ink-2);
+  background:var(--surface-2);border-radius:7px;padding:9px 13px;
+  display:flex;gap:18px;flex-wrap:wrap;font-variant-numeric:tabular-nums;min-height:38px;align-items:center;
+}
+.readout b{color:var(--ink);font-weight:600}
+
+/* ---------- prompt cards ---------- */
+.prompts{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-block:20px}
+.pcard{
+  background:var(--surface);border:1px solid var(--rule);border-radius:9px;padding:15px 16px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.pcard .plabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
+.pcard .ptext{font-family:var(--mono);font-size:13px;line-height:1.55;color:var(--ink);flex:1}
+.pcard.bad{border-color:var(--rule);background:var(--surface-2)}
+.pcard.bad .plabel{color:var(--ink-3)}
+.pcard.bad .ptext{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--rule-2)}
+
+/* ---------- misc ---------- */
+.kbdhint{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.score{font-family:var(--mono);font-variant-numeric:tabular-nums}
+hr.soft{border:0;border-top:1px solid var(--rule);margin-block:34px}
+.footer{
+  border-top:1px solid var(--rule);padding-block:34px 60px;
+  font-family:var(--sans);font-size:13.5px;color:var(--ink-3);line-height:1.6;
+}
+.footer h4{margin-top:0}
+.reflist{font-size:13px;line-height:1.6}
+.reflist li{margin:.55em 0}
+
+@media (max-width:620px){
+  body{font-size:16.5px}
+  .opts.two{grid-template-columns:1fr}
+  .wrap{padding-inline:16px}
+  .topbar-in{padding-inline:16px}
+  .ix-body,.panel{padding:16px}
+  .herometa{gap:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+@media print{
+  .topbar,.ix-foot,.btnrow{display:none}
+  .ix,.panel{break-inside:avoid;box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+
+<nav class="topbar">
+  <div class="topbar-in">
+    <span class="brand">MAGA51 · AI och studiestrategier</span>
+    <div class="navlinks">
+      <a href="#del1">1 · Lärandestraffet</a>
+      <a href="#del2">2 · Integration</a>
+      <a href="#mellanspel">Mellanspel</a>
+      <a href="#del3">3 · Studiestrategier</a>
+      <a href="#slut">Sammanfattning</a>
+    </div>
+  </div>
+  <div class="progress" id="progress"></div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============================ HERO ============================ -->
+  <header class="hero col">
+    <p class="eyebrow">MAGA51 · AI och studiestrategier</p>
+    <h1>Generativ AI och studiestrategier</h1>
+    <p class="standfirst">Detta material tar sin utgångspunkt i tre studier om generativ AI, studieresultat och studiestrategier med gott forskningsstöd. Uppskattad tidsåtgång 45–60 minuter. Frågorna i texten är avsedda att besvaras innan du läser vidare.</p>
+  </header>
+
+  <!-- ============================ INTRO ============================ -->
+  <section class="part" style="border-top:0">
+    <div class="col">
+      <p class="lede">Erfarenheten är välbekant: uppgiften går fortare med AI och resultatet blir ofta korrekt. Vad den snabbare lösningen innebär för lärandet är däremot inte uppenbart.</p>
+      <p>Materialet följer tre studier som belyser frågan från var sitt håll. Tillsammans ger de en grund för att diskutera konstruktiv användning av generativ AI som går från kognitiv offloading till kognitiv onboarding.</p>
+      <ol>
+        <li><strong>Strömberg, Lei &amp; Wu (2026)</strong> följer 26&nbsp;811 kinesiska elever genom 30 månader av successivt AI-införande och redovisar ett lärandestraff som tilltar över tid.</li>
+        <li><strong>LLAMA LIMA</strong>, en levande metaanalys över 34 studier, redovisar tvärtom en positiv effekt, men endast under vissa villkor.</li>
+        <li><strong>Bennoun, Yan &amp; Xu (2026)</strong> i npj Science of Learning prövar en förändring av hur övningsuppgifter organiseras, och mäter dess effekt på slutexamen i en kurs i envariabelanalys.</li>
+      </ol>
+      <div class="box key">
+        <h4>Materialets disposition</h4>
+        <p style="margin:0">Del 1 redovisar en negativ effekt av AI-användning i stor skala, del 2 de villkor under vilka effekten i stället blir positiv, och del 3 de studiestrategier som kan återställa det som går förlorat.</p>
+      </div>
+      <p>Sidan är disponerad enligt principerna i del 3: frågor ställs före svaren, tidigare frågor återkommer efter längre mellanrum, och avslutningen blandar innehåll från samtliga delar. Upplägget är mer ansträngande än genomläsning, vilket är avsiktligt. Del 3 redogör för skälen.</p>
+    </div>
+  </section>
+
+  <!-- ============================ DEL 1 ============================ -->
+  <section class="part" id="del1">
+    <div class="parthead">
+      <span class="partnum">Del <b>1</b> — Strömberg, Lei &amp; Wu (2026)</span>
+      <h2>Lärandestraffet</h2>
+      <p class="partsub">En fältstudie som följde 26&nbsp;811 elever i årskurs 7–12 under 30 månader, med deras egna verktyg och egna arbetsvanor.</p>
+    </div>
+
+    <div class="col">
+      <p>Studiens identifikationsstrategi bygger på att AI-användningen inte inträdde samtidigt för alla. Hösten 2022 använde i stort sett ingen elev generativ AI till läxorna; i juni 2025 gjorde fyra av fem det. Eftersom eleverna började vid olika tidpunkter kan varje elev jämföras med sig själv före och efter, och samtidigt med elever som ännu inte påbörjat användningen.</p>
+    </div>
+
+    <figure class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Andel elever som börjat använda generativ AI</span>
+        <span class="panel-kicker">Okt 2022 – Jun 2025</span>
+      </div>
+      <div id="fig-adoption"></div>
+      <figcaption class="caption">
+        Det stegvisa införandet är metodens förutsättning: elever som ännu inte börjat fungerar som jämförelsegrupp åt dem som nyss börjat.
+        <div class="source">Data: Strömberg, Lei &amp; Wu (2026), figur 1.</div>
+      </figcaption>
+    </figure>
+
+    <div class="col">
+      <h3>Tre utfallsmått</h3>
+      <p>För varje elev mättes tre utfallsmått: läxans poäng, den tid läxan tog i anspråk och resultatet på månadsprovet. Formulera en förväntan innan du läser vidare.</p>
+    </div>
+
+    <div class="ix" id="ix-predict">
+      <div class="ix-head">
+        <span class="ix-tag">Förutsägelse</span>
+        <span class="ix-title">Hur ändrades de tre måtten?</span>
+      </div>
+      <div class="ix-body">
+        <div class="q">Ange för varje mått hur det förändrades när eleverna började använda AI till läxorna.</div>
+        <div id="predict-qs"></div>
+        <div class="btnrow">
+          <button class="btn primary" id="predict-go">Visa utfallet</button>
+          <span class="kbdhint" id="predict-hint">Välj ett alternativ på varje rad.</span>
+        </div>
+        <div class="fb" id="predict-fb" hidden></div>
+      </div>
+    </div>
+
+    <figure class="panel flush" id="fig-dens-panel">
+      <div class="panel-head" style="padding-inline:6px">
+        <span class="panel-title">Fördelningen av elever, före och efter AI</span>
+        <span class="panel-kicker" id="dens-step-label">Steg 1 · utan AI</span>
+      </div>
+      <div style="padding-inline:6px;margin-bottom:10px">
+        <div class="legend" id="dens-legend"></div>
+      </div>
+      <div id="fig-dens"></div>
+      <div class="btnrow" style="padding:14px 6px 0">
+        <div class="seg" role="group" aria-label="Steg i figuren">
+          <button type="button" id="dens-s1" aria-pressed="true">Utan AI</button>
+          <button type="button" id="dens-s2" aria-pressed="false">Lägg till: med AI</button>
+        </div>
+      </div>
+      <figcaption class="caption" style="margin-inline:6px">
+        Axlarna är identiska i båda stegen; endast den orange kurvan tillkommer. <b>Läxpoängen stiger, läxtiden minskar och provpoängen sjunker.</b> De två första måtten är de som är synliga för eleven under arbetet, det tredje det som examineras.
+        <div class="source">Data: Strömberg, Lei &amp; Wu (2026), histogramdata bakom figur 2. 26 811 elever, 12–18 år.</div>
+      </figcaption>
+    </figure>
+
+    <div class="col">
+      <div class="stats">
+        <div class="stat"><div class="v up">+18 %</div><div class="k">Läxpoäng</div></div>
+        <div class="stat"><div class="v down">−30 %</div><div class="k">Läxtid: 64 → 45 min</div></div>
+        <div class="stat"><div class="v down">−20 %</div><div class="k">Månadsprov, inom sex månader</div></div>
+        <div class="stat"><div class="v down">−18 %</div><div class="k">Antagningsprov till universitet</div></div>
+        <div class="stat"><div class="v down">−24 %</div><div class="k">Antagningsprov till gymnasiet</div></div>
+      </div>
+      <p>De två antagningsproven är nationella och avgör på egen hand vilken fortsatt utbildning eleven kommer in på. Effekterna där motsvarar 1,3 respektive 1,5 standardavvikelser och slår igenom i full omfattning <strong>först efter omkring två år</strong>. Förlusten uppträder alltså inte omedelbart utan ackumuleras.</p>
+    </div>
+
+    <div class="col">
+      <h3>Mekanismen: läxtiden som förklarande variabel</h3>
+      <p>Varför skulle högre läxpoäng samvariera med lägre provpoäng? Studiens centrala figur visar provresultatet som funktion av den tid eleven lade på läxan, separat för AI-användare och för elever som aldrig använt AI.</p>
+    </div>
+
+    <figure class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Provpoäng efter läxtid</span>
+        <span class="panel-kicker">Dra eller peka i figuren</span>
+      </div>
+      <div class="legend" id="mech-legend"></div>
+      <div id="fig-mech"></div>
+      <div class="readout" id="mech-readout">Peka i figuren för att läsa av värden.</div>
+      <figcaption class="caption">
+        AI-användare som <b>bibehöll läxtiden</b> ligger i nivå med eller över dem som aldrig använt AI. Förlusten återfinns hos dem som kraftigt minskade tiden. Strömberg kallar gruppen <em>homework outsourcers</em>, och den är stor: <b>81&nbsp;%</b> av AI-användarna.
+        <div class="source">Data: Strömberg, Lei &amp; Wu (2026), figur 5. Skuggan är kvartilavståndet (p25–p75). Observera: sambandet är beskrivande — elever som lägger olika lång tid skiljer sig också på andra sätt.</div>
+      </figcaption>
+    </figure>
+
+    <div class="col">
+      <div class="box key">
+        <h4>Mekanismen i korthet</h4>
+        <p style="margin:0">Elever som använde AI men <strong>bibehöll sin läxtid</strong> fick små eller inga förluster, trots att deras läxpoäng visade att AI använts. Forskarna föreslår att det inte är användningen av verktyget som förklarar resultatet, utan den arbetstid som föll bort.</p>
+      </div>
+
+      <h3>Fördelning över ämnen och elevgrupper</h3>
+      <p>Ämnesmönstret är av särskilt intresse för den som läser en teknisk utbildning.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Ämne</th><th>Effekt på provresultat</th><th></th></tr></thead>
+          <tbody id="subject-rows"></tbody>
+        </table>
+      </div>
+      <p class="note">Studien omfattar nio ämnen. <strong>STEM</strong> står för <em>science, technology, engineering, mathematics</em> och omfattar här matematik, fysik, kemi och biologi. Samhällsvetenskap avser historia, politik och geografi, där de två sistnämnda drabbades hårdast. Språken redovisas var för sig: engelska som främmande språk, kinesiska som modersmål. För <strong>matematik ensamt</strong> var effekten −22 %, vilket motsvarar 0,84 standardavvikelser.</p>
+      <p>Störst var förlusterna bland <strong>yngre elever, högpresterande elever och pojkar</strong>. Att de högpresterande förlorar mest är kontraintuitivt, men följdriktigt: deras resultat vilade i högre grad på eget arbete, och de identifierar snabbare att verktyget kan överta det arbetet.</p>
+
+      <div class="box method">
+        <h4>Metodologiska invändningar</h4>
+        <ul style="margin:0">
+          <li><strong>Ingen randomisering.</strong> Adoptionen var självvald. Difference-in-differences hanterar en del av detta, men inte selektion på faktorer som varierar över tid.</li>
+          <li><strong>Effektstorleken är osedvanligt stor.</strong> Utbildningsvetenskaplig forskning rör sig normalt i intervallet 0,1–0,5 SD. Effekter om 1,3–1,5 SD bör behandlas med motsvarande försiktighet.</li>
+          <li><strong>Kontextberoende.</strong> Läxkultur, provsystem och tillgång till verktyg skiljer sig från svensk högskoleutbildning.</li>
+          <li><strong>Författarnas egen reservation:</strong> straffet minskade från omkring 25&nbsp;% i början av 2023 till omkring 16&nbsp;% i juni 2025, vilket tyder på anpassning över tid.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ix" id="ix-q1">
+      <div class="ix-head">
+        <span class="ix-tag">Kontrollfrågor</span>
+        <span class="ix-title">Strömberg, Lei &amp; Wu</span>
+      </div>
+      <div class="ix-body" id="q1-body"></div>
+    </div>
+  </section>
+
+  <!-- ============================ DEL 2 ============================ -->
+  <section class="part" id="del2">
+    <div class="parthead">
+      <span class="partnum">Del <b>2</b> — LLAMA LIMA, version 5 (09/26)</span>
+      <h2>Integration av AI och undervisning</h2>
+      <p class="partsub">En metaanalys som uppdateras varannan månad och nu omfattar 34 studier, 69 effektstorlekar och 4&nbsp;349 deltagare.</p>
+    </div>
+
+    <div class="col">
+      <h3>Formatet som metodfråga</h3>
+      <p>Forskningsfältet utvecklas snabbare än sitt eget publiceringssystem. Författarna hänvisar till en översiktsartikel publicerad i februari 2025, byggd på litteratur fram till maj 2024, som behandlar begränsningar hos ChatGPT vilka redan var inaktuella vid publiceringen.</p>
+      <p>Författarnas svar är <em>living evidence synthesis</em>, ett format hämtat från medicinen: återkommande sökningar, preprints tillåtna och en bayesiansk modell i stället för en frekventistisk. Skälen är två. Upprepade uppdateringar inflaterar felfrekvensen i ett frekventistiskt ramverk, och en bayesiansk modell kan skilja <strong>otillräcklig evidens</strong> från <strong>evidens för frånvaro av effekt</strong>. Den distinktionen är en förutsättning för att moderatoranalyserna längre ned ska kunna tolkas.</p>
+      <p class="note warn">Version 5, litteratursökning 1 augusti 2026, nästa version november 2026. <strong>Arbetet är inte peer-granskat.</strong> Det följer av formatet och är ett medvetet val, men det bör sägas uttryckligen.</p>
+
+      <h3>Material och urval</h3>
+      <ul>
+        <li>Sökning i SCOPUS, SCOPUS preprints, OpenAlex och citeringssökning. 317 nya träffar i denna version → 13 fulltextgranskade → sex nya studier, plus en tidigare utesluten vars författare nu lämnat de data som saknades. Sammanlagt sju nya studier.</li>
+        <li><strong>Inklusion:</strong> experimentell eller kvasiexperimentell design, generativ AI i interventionen och ingen i kontrollgruppen, mänskliga deltagare, matematikprestation som utfall, engelska.</li>
+        <li>Totalt <strong>34 studier, 69 effektstorlekar, 4&nbsp;349 deltagare</strong>.</li>
+        <li>Hedges' <span class="math">g</span> med småurvalskorrigering; bayesiansk flernivåmodell med effekter nästlade i studier.</li>
+      </ul>
+      <p>Värt att notera: studier med interna inkonsistenser tas in först efter en tvåstegskontroll där samtliga författare granskar oberoende och studiens författare kontaktas. Uteblivet svar leder till uteslutning; två studier ströks på den grunden i denna version.</p>
+
+      <h3>Huvudresultatet</h3>
+      <div class="stats">
+        <div class="stat"><div class="v">0,57</div><div class="k">Sammanvägd effekt, Hedges' <span class="math">g</span></div></div>
+        <div class="stat"><div class="v" style="font-size:19px">[0,36; 0,79]</div><div class="k">95 % trovärdighetsintervall</div></div>
+        <div class="stat"><div class="v">0,44</div><div class="k">Heterogenitet <span class="math">τ</span> mellan studier</div></div>
+      </div>
+      <p>Heterogeniteten är betydande. Den sammanvägda effekten döljer därmed stor variation, vilket motiverar moderatoranalyserna.</p>
+      <p><strong>Storleken bör sättas i sammanhang.</strong> Författarna jämför själva med digitala medier (<span class="math">g</span> = 0,55) och visualiseringar (<span class="math">g</span> = 0,50) i matematikundervisning. Generativ AI ligger alltså i nivå med andra systematiska insatser, inte i en egen kategori.</p>
+
+      <div class="box method">
+        <h4>Publikationsbias</h4>
+        <p style="margin:0 0 .6em">En RoBMA-analys ger inclusion BF = 0,37 — anekdotisk evidens <em>mot</em> bias. Biaskorrigerad effekt <span class="math">g</span> = 0,52, med stark evidens för att en effekt finns.</p>
+        <p style="margin:0">Närliggande arbeten ger andra resultat: Bartoš m.fl. erhåller <span class="math">g</span> = 0,37 tvärs över ämnen, Boolzen m.fl. 0,076 för STEM efter biaskorrigering. Författarnas förklaring är att endast 4 av Boolzens 49 studier gällde matematik. Frågan är öppen.</p>
+      </div>
+
+      <h3>Moderatoranalyserna</h3>
+      <p>Den starkaste moderatorn är <strong>integrationsläget</strong>. Kategorierna avser inte hur ändamålsenlig användningen är, utan vilka aktörer som var närvarande i respektive grupp.</p>
+      <p>Klicka på en rad för att se studieuppläggets konstruktion.</p>
+    </div>
+
+    <figure class="panel" id="fig-forest-panel">
+      <div class="panel-head">
+        <span class="panel-title">Effekt per integrationsläge</span>
+        <span class="panel-kicker">BF<sub>10</sub> ≈ 1 672 · R² = 0,54</span>
+      </div>
+      <div id="fig-forest"></div>
+      <div id="forest-detail"></div>
+      <figcaption class="caption">
+        Den relevanta jämförelsen är mellan <b>de två översta raderna</b>. I både supplement och standalone är AI:n det enda som skiljer grupperna åt — samma tillägg, mätt i två olika sammanhang. Skillnaden i utfall är ändå 0,88 mot 0,17.
+        <div class="source">Data: Strohmaier m.fl. (2026), LLAMA LIMA v5, tabell 1. Staplarna är 95 % trovärdighetsintervall.</div>
+      </figcaption>
+    </figure>
+
+    <div class="col">
+      <h4>Läsanvisning till figuren</h4>
+      <ol>
+        <li>Kategorierna avser <strong>vilka som var närvarande</strong>, inte hur ändamålsenligt verktyget användes.</li>
+        <li>I de två översta raderna är AI:n det enda som skiljer grupperna åt: samma tillägg i två olika sammanhang.</li>
+        <li>Utfallet är ändå 0,88 mot 0,17. Värdet av tillägget beror alltså i hög grad på om det finns undervisning att lägga det till.</li>
+        <li>Replacement-raden är en annan sorts jämförelse, där en lärare ersätts av AI. Utfallet 0,08 säger främst något om svårigheten att ersätta läraren.</li>
+        <li>Notera intervallen: <strong>supplement är det enda läge vars intervall tydligt utesluter noll.</strong> Standalone och replacement omfattar båda nollan.</li>
+      </ol>
+
+      <div class="box key">
+        <h4>Tillämpning på enskilt studerande</h4>
+        <p style="margin:0">Den som studerar ensam med ett chattverktyg befinner sig inte i supplement-läget utan i standalone. Effekten 0,88 hör till lärarens kursdesign, det vill säga till hur kursen integrerar AI, inte till den enskilda studiesituationen. För situationen <em>ensam med verktyget</em> uppgår skattningen till 0,17, med ett intervall som omfattar noll. Det innebär otillräckligt stöd för en effekt, inte belägg för att effekten saknas.</p>
+      </div>
+
+      <p class="note warn">Ett viktigt förbehåll: studierna är inte slumpmässigt fördelade över integrationslägen. De som är upplagda som supplement kan skilja sig systematiskt på andra sätt än genom lärarens närvaro. <em>Supported</em>-raden vilar dessutom på en enda studie med två effektstorlekar och bör lämnas utan avseende.</p>
+
+      <h3>Övriga moderatorer</h3>
+      <p>Växla mellan dem och notera <strong>underlaget</strong>: flera av de höga staplarna vilar på ett mycket litet antal effektstorlekar.</p>
+    </div>
+
+    <figure class="panel">
+      <div class="panel-head">
+        <span class="panel-title" id="mod-title">Interventionens längd</span>
+        <span class="panel-kicker" id="mod-bf">BF = 15,3</span>
+      </div>
+      <div class="btnrow" style="margin-bottom:14px">
+        <div class="seg" role="group" aria-label="Välj moderator">
+          <button type="button" data-mod="langd" aria-pressed="true">Längd</button>
+          <button type="button" data-mod="niva" aria-pressed="false">Utbildningsnivå</button>
+          <button type="button" data-mod="teknik" aria-pressed="false">Teknikgeneration</button>
+        </div>
+      </div>
+      <div id="fig-mod"></div>
+      <figcaption class="caption" id="mod-caption"></figcaption>
+    </figure>
+
+    <div class="col">
+      <h4>Moderatorer utan stöd</h4>
+      <p>Dessa är av lika stort intresse, eftersom bayesfaktorerna här talar <em>emot</em> att moderatorn behövs: AI:ns syfte (BF = 0,30), matematiskt innehållsområde (0,33), om AI-systemet modifierats (0,24), forskningsmiljö (0,32), publikationstyp (0,71).</p>
+      <p>Det finns alltså inget stöd för att något särskilt användningssätt — räknehjälp, samtalspartner eller materialgenerator — skulle vara överlägset. Det avgörande är <strong>ramen kring användningen</strong>, inte den roll verktyget ges.</p>
+
+      <div class="box method">
+        <h4>Tre förbehåll</h4>
+        <ol style="margin:0">
+          <li><strong>27 av 34 studier använde ett modifierat AI-system</strong>, specialbyggt eller pedagogiskt tillrättalagt snarare än ChatGPT i grundutförande. Modifieringen var samtidigt ingen moderator (BF = 0,24). En tolkning är att det inte är anpassningen av verktyget som är avgörande, utan sammanhanget det används i.</li>
+          <li><strong>Studierna är små.</strong> Medianen ligger omkring 85 deltagare och ungefär två tredjedelar omfattar färre än 100.</li>
+          <li><strong>Den största studien påvisar ingen effekt.</strong> Bastani m.fl. (2025), N = 943, vilket motsvarar drygt en femtedel av samtliga deltagare, ger <span class="math">g</span> = 0,03 över 24 effektstorlekar. Studien är kodad som <em>standalone</em>.</li>
+        </ol>
+      </div>
+
+      <h3>Förhållandet mellan del 1 och del 2</h3>
+      <p><strong>Bastani m.fl. är samma studie som Strömberg hänvisar till</strong> i sin inledning: turkiska gymnasieelever, AI-handledare som tillhandahåller svar, förbättrade resultat på övningsuppgifterna och försämrade på provet. Studien ingår alltså i metaanalysen, är dess största enskilda bidrag och pekar i samma riktning som del 1.</p>
+      <p>Motsättningen mellan delarna gäller därför inte AI som sådan, utan under vilka betingelser verktyget används:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>Metaanalysen mäter</th><th>Strömberg mäter</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Vad</strong></td><td>Designade insatser</td><td>Självvald vardagsanvändning</td></tr>
+            <tr><td><strong>Lärare</strong></td><td>Närvarande i båda grupperna</td><td>Ingen i loopen</td></tr>
+            <tr><td><strong>Verktyg</strong></td><td>Byggt för uppgiften</td><td>Allmänt chattverktyg</td></tr>
+            <tr><td><strong>Tid</strong></td><td>Oftast en dag till en månad</td><td>30 månader</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>De betingelser under vilka metaanalysen finner stora effekter är just de som saknas i Strömbergs material.</p>
+      <p class="note">Tidsmoderatorn förtjänar en kommentar: metaanalysen anger att längre insatser ger större effekt, medan Strömberg finner att förlusten tilltar med tiden. Båda kan vara riktiga. Metaanalysens ”ett år” avser en <strong>handledd</strong> insats som pågår under ett år, medan Strömbergs två år avser <strong>ohandledd ackumulation</strong>. Det rör sig inte om samma process.</p>
+    </div>
+
+    <div class="ix" id="ix-q2">
+      <div class="ix-head">
+        <span class="ix-tag">Kontrollfrågor</span>
+        <span class="ix-title">Del 2, med en återblick till del 1</span>
+      </div>
+      <div class="ix-body" id="q2-body"></div>
+    </div>
+  </section>
+
+  <!-- ============================ MELLANSPEL ============================ -->
+  <section class="part" id="mellanspel">
+    <div class="parthead">
+      <span class="partnum">Mellanspel</span>
+      <h2>Det kognitiva arbetet</h2>
+      <p class="partsub">Varför lärandet går förlorat på två sätt: genom att verktyget övertar arbetet, och genom att uppgiften aldrig efterfrågar det.</p>
+    </div>
+
+    <div class="col">
+      <p class="lede">Del 2 utmynnade i att ett tillägg förutsätter <strong>en struktur att integrera verktyget i</strong> och <strong>något som upprätthåller ansvaret för det kognitiva arbetet</strong>. I supplement-studierna tillhandahåller läraren båda. Den som studerar ensam måste konstruera dem själv, vilket är ämnet för del 3.</p>
+
+      <div class="box key">
+        <h4>Utgångspunkten</h4>
+        <p style="margin:0">För den studerande är målet inte att lösa uppgiften snabbt. Fokus är att <strong>lära av den</strong>. Lärandet uppstår som en följd av det ansträngande tänkandet, inte av att uppgiften färdigställs. Därmed är ”klar och rätt” ett opålitligt mått på lärande.</p>
+      </div>
+
+      <h3>Kognitiv offloading</h3>
+      <p>Risko och Gilbert (2016) definierar <strong>kognitiv offloading</strong> som att använda en handling i omvärlden för att ändra en uppgifts bearbetningskrav och därmed <strong>minska den kognitiva belastningen</strong>: ett telefonnummer skrivs ned i stället för att memoreras, en uträkning lämnas till miniräknaren, en deadline förs in i kalendern i stället för att hållas i minnet.</p>
+      <p>Offloading är i sig varken önskvärt eller problematiskt, och är i de flesta fall rationellt. Den som skriver ned numret handlar förnuftigt. Problemet uppstår när den operation som läggs ut är densamma som skulle ha byggt en förmåga. Det är vad del 1 mäter: eleverna lade ut lösandet av uppgiften, och lösandet var lärandet.</p>
+      <p>Som motbegrepp används i detta material <strong>kognitiv onboarding</strong>: att använda samma verktyg så att det kognitiva arbetet återförs till den studerande i stället för att flyttas bort. Till skillnad från offloading är det ingen etablerad term i litteraturen, utan en beteckning på den omställning del 3 beskriver och som avslutningen återkommer till.</p>
+
+      <h3>Två sätt att förlora arbetet</h3>
+      <p>Samma förlust uppträder i två former:</p>
+      <ol>
+        <li><strong>Verktyget utför uppgiften.</strong> Strömbergs outsourcing, där hela det kognitiva arbetet bortfaller på en gång.</li>
+        <li><strong>Uppgiften är upplagd så att arbetet aldrig efterfrågas.</strong> Blockade läxor, vilka prövas längre fram. Här bortfaller <em>en bestämd operation</em>: avgörandet av vilken metod som är tillämplig. Står samtliga uppgifter under samma rubrik aktualiseras aldrig den frågan.</li>
+      </ol>
+      <p>Endast det första fallet är offloading i egentlig mening. I det andra lämnas arbetet inte över till något, det efterfrågas aldrig. Utfallet är ändå detsamma: operationen utförs inte. Blockade läxor är en mild, strukturell variant av det outsourcing gör i mer omfattande form. Båda avlägsnar avgörandet av vad som ska göras. Bennoun visar att det är just det avgörandet provet mäter, och att blandad övning återinför det.</p>
+
+      <h3>Stöd i litteraturen</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th style="width:30%">Arbete</th><th>Poängen</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Testeffekten</strong><br><span class="kbdhint">Roediger &amp; Karpicke (2006); Dunlosky m.fl. (2013)</span></td>
+                <td>Övningsuppgifter kräver mer kognitiv ansträngning än passiv läsning och ger bättre retention. Vid outsourcing uteblir den effekten. Behandlas utförligt i del 3.1.</td></tr>
+            <tr><td><strong>Kosmyna m.fl. (2025)</strong></td>
+                <td>Den som skriver uppsatser med ChatGPT minns sina egna argument sämre efteråt, med uppmätt lägre neural konnektivitet under skrivandet. Arbete som inte utförs lämnar inget minnesspår, inte heller av den text som producerats.</td></tr>
+            <tr><td><strong>Dynamisk komplementaritet</strong><br><span class="kbdhint">Heckman</span></td>
+                <td>Färdigheter bygger på varandra. Detta förklarar varför straffet i del 1 tilltar under två år i stället för att uppträda omedelbart: varje uteblivet arbetspass försvårar tillägnandet av nästa moment.</td></tr>
+            <tr><td><strong>Kognitiv uthållighet</strong><br><span class="kbdhint">Brown m.fl. (2025)</span></td>
+                <td>Förmågan att hålla ansträngd uppmärksamhet är i sig träningsbar. I ett randomiserat experiment ökades tiden eleverna ägnade åt sammanhängande tankearbete, i ett villkor med rena spel utan ämnesinnehåll. Prestationsfallet över tid minskade med <strong>22 %</strong> och skolresultaten steg 0,09 SD. Det är alltså ansträngningen i sig, inte innehållet, som bygger kapaciteten — och outsourcing tränar bort den.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>En nödvändig avgränsning</h3>
+      <p>All ansträngning är inte lärande. Att formatera en tabell, slå upp en konstant eller lokalisera ett saknat kommatecken i LaTeX bygger ingen förmåga; det är ren kostnad, och den kan verktyget rimligen överta. Avgränsningen kan formuleras som en fråga:</p>
+      <div class="box key">
+        <p style="margin:0;font-size:19px">Avlägsnar denna AI-användning arbete som <strong>byggde en förmåga</strong>, eller arbete som <strong>enbart utgjorde kostnad</strong>?</p>
+      </div>
+      <p>Tillämpa frågan på följande åtta fall.</p>
+    </div>
+
+    <div class="ix" id="ix-sort">
+      <div class="ix-head">
+        <span class="ix-tag">Övning</span>
+        <span class="ix-title">Byggde arbetet en förmåga, eller utgjorde det kostnad?</span>
+      </div>
+      <div class="ix-body" id="sort-body"></div>
+      <div class="ix-foot">
+        <span id="sort-score">0 / 8</span>
+        <button class="btn" id="sort-reset" style="margin-inline-start:auto;font-size:12px;padding:5px 10px">Börja om</button>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="box key">
+        <h4>En praktisk indikator</h4>
+        <p style="margin:0">Strömberg saknar mått på tänkande, men har läxtiden, och det är den variabel som skiljer. Därav följer en användbar indikator: <strong>om verktyget gjorde dig färdig avsevärt snabbare, undersök vad som föll bort.</strong> Ibland är det kostnad, ofta är det lärandet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ DEL 3 ============================ -->
+  <section class="part" id="del3">
+    <div class="parthead">
+      <span class="partnum">Del <b>3</b> — Bennoun, Yan &amp; Xu (2026) m.fl.</span>
+      <h2>Effektiva studiestrategier</h2>
+      <p class="partsub">Tre strategier med starkt stöd i forskning: testningseffekten, fördelad inlärning och interfolierad inlärning.</p>
+    </div>
+
+    <div class="col">
+      <p class="lede">Del 1 och 2 utmynnar i samma slutsats från två håll: det är det ansträngande tänkandet som bygger kunnandet, och det faller lätt bort — antingen genom att verktyget övertar det, eller genom att uppgiften aldrig efterfrågar det.</p>
+      <p>De tre strategierna nedan verkar i motsatt riktning: de återinför ansträngning som annars faller bort. Gemensamt för dem är att de <strong>upplevs som mindre effektiva under tiden de tillämpas</strong> och ger bättre resultat vid examination. Forskarna Bjork och Bjork benämner fenomenet <em>desirable difficulties</em>, önskvärda svårigheter.</p>
+      <div class="box key">
+        <h4>Varför de upplevs som ineffektiva</h4>
+        <p style="margin:0">Upplevelsen av att ett stoff ”sitter” återspeglar hur <strong>lättillgängligt materialet är i stunden</strong>, inte hur väl det är befäst om en vecka. Omläsning gör texten flytande och bekant, vilket förväxlas med kunskap. Det är denna förväxling de tre strategierna motverkar, och samma förväxling som gjorde snabbt och välgjort läxarbete till en varningssignal i del 1.</p>
+      </div>
+    </div>
+
+    <!-- ---------------- 3.1 Testningseffekten ---------------- -->
+    <div class="col">
+      <h3>3.1 Testningseffekten <span style="color:var(--ink-3);font-weight:400">(retrieval practice)</span></h3>
+      <p>Framplockning ur minnet förändrar minnet. Den mäter inte bara vad den studerande kan, utan är en inlärningssituation i sig, och är mer effektiv än att läsa materialet en gång till.</p>
+      <p>Avgörande är <strong>ansträngningen vid framplockningen</strong>. Ett svar som kommer med möda befäster minnesspåret mer än ett som kommer omedelbart. Ett misslyckat framplockningsförsök, följt av att det korrekta svaret presenteras, ger dessutom ofta bättre behållning än att försöket aldrig gjorts.</p>
+      <p>Nedan presenteras en definition ur kursen under tjugo sekunder, varefter den döljs.</p>
+    </div>
+
+    <div class="ix" id="ix-retrieval">
+      <div class="ix-head">
+        <span class="ix-tag">Övning</span>
+        <span class="ix-title">Framplockningsövning</span>
+      </div>
+      <div class="ix-body" id="retrieval-body"></div>
+    </div>
+
+    <div class="col">
+      <p>Obehaget inför den tomhet som föregår ett framplockat svar är arbetet i fråga. När facit därefter presenteras befästs korrigeringen på ett sätt som uteblir vid enbart fortsatt läsning.</p>
+      <p>Det klassiska experimentet är Roediger och Karpickes (2006). Deltagarna läste en text och fick därefter antingen läsa om den ytterligare tre gånger eller försöka återge den tre gånger, med lika lång tidsåtgång i båda villkoren. Testning skedde sedan antingen efter fem minuter eller efter en vecka.</p>
+    </div>
+
+    <figure class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Läsa om kontra återge</span>
+        <span class="panel-kicker">Andel återgivet material</span>
+      </div>
+      <div class="legend" id="rk-legend"></div>
+      <div id="fig-rk"></div>
+      <figcaption class="caption">
+        Efter fem minuter ger omläsning bättre resultat. <b>Efter en vecka är förhållandet omvänt</b>, och det är veckointervallet som motsvarar förhållandena vid en tentamen. Räknat som andel glömt av det man kunde efter fem minuter förlorade omläsningsgruppen <b>52 %</b> under veckan, framplockningsgruppen <b>14 %</b>. Deltagarna förutsåg dessutom att omläsning skulle gynna dem bäst, vilket inte visade sig stämma.
+        <div class="source">Roediger &amp; Karpicke (2006), <em>Psychological Science</em> 17(3), experiment 2: fyra lästillfällen (SSSS) mot ett lästillfälle och tre framplockningar (STTT). 90 deltagare testades efter fem minuter eller en vecka.</div>
+      </figcaption>
+    </figure>
+
+    <div class="col">
+      <p class="note key">Dunlosky m.fl. (2013) graderade tio vanliga studietekniker. Högst omdöme fick <strong>övningstestning</strong> och <strong>fördelad övning</strong>, medan överstrykning och omläsning hamnade i den lägsta kategorin. Donoghue och Hattie (2021) metaanalyserade därefter samma tio tekniker över 242 studier och 169&nbsp;179 deltagare och fick samma två i topp (<span class="num">d = 0,85</span> respektive <span class="num">0,74</span>). Avståndet nedåt är dock mindre än graderingen antyder: omläsning når <span class="num">0,47</span> och överstrykning <span class="num">0,44</span>.</p>
+      <p class="note">Hattie och Donoghue (2016) lägger till, i en syntes av 228 metaanalyser, att ingen teknik är effektiv i sig. Verkan beror på vilken fas av lärandet den används i, och de två högst rankade hör till konsolideringen: de förutsätter att något redan tillägnats.</p>
+      <h4>Tillämpning</h4>
+      <ul>
+        <li>Stäng boken och skriv ned allt du minns av avsnittet innan du öppnar den på nytt. Jämför därefter.</li>
+        <li>Räkna gamla tentamensuppgifter utan tillgång till lösningsförslag, och konsultera dem först efter genomfört försök.</li>
+        <li>Formulera egna frågor under läsningen. Frågan ger mer behållning än anteckningen.</li>
+        <li>Använd AI för att <strong>ställa frågor till dig</strong>, inte för att besvara dem. Behandlas i avslutningen.</li>
+      </ul>
+    </div>
+
+    <!-- ---------------- 3.2 Spacing ---------------- -->
+    <div class="col">
+      <h3>3.2 Fördelad inlärning <span style="color:var(--ink-3);font-weight:400">(spacing)</span></h3>
+      <p>Samma antal timmar fördelade över flera tillfällen ger större behållning än samma timmar koncentrerade till ett. Resultatet hör till de mest replikerade inom inlärningspsykologin. Cepeda m.fl. (2006) sammanställde 317 experiment ur 184 artiklar och fann det genomgående.</p>
+      <p>Mekanismen är densamma som i 3.1. Efter ett uppehåll har en del av stoffet hunnit blekna, så framplockningen kräver arbete. Sker repetitionen omedelbart är materialet fortfarande tillgängligt, ingen framplockning behövs, och då ger repetitionen nästan ingenting.</p>
+      <p>Det är också därför <strong>koncentrerad inläsning kvällen före</strong> <span style="color:var(--ink-3)">(cramming, råplugga)</span> kan verka fungera: den ger hög tillgänglighet påföljande morgon och mycket liten behållning två veckor senare.</p>
+    </div>
+
+    <figure class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Vad en repetition gör beror på när den kommer</span>
+        <span class="panel-kicker">Dra i reglaget</span>
+      </div>
+      <div id="fig-forget"></div>
+      <div class="btnrow" style="margin-top:14px;gap:14px">
+        <label for="gap-slider" class="kbdhint" style="min-width:150px">Dagar mellan repetitionerna: <b class="num" id="gap-val" style="color:var(--ink)">7</b></label>
+        <input type="range" id="gap-slider" min="0" max="14" value="7" step="1" style="flex:1;min-width:150px;accent-color:var(--orange)">
+      </div>
+      <div class="readout" id="forget-readout"></div>
+      <figcaption class="caption">
+        Varje repetition gör kurvan <b>flackare</b>, det vill säga glömskan fortskrider långsammare därefter — men endast om något hunnit glömmas. Repetitioner med korta mellanrum ger ringa tillskott.
+        <div class="source">Schematisk illustration av glömskekurvan, inte uppmätta data. För uppmätta optimala mellanrum, se Cepeda m.fl. (2008) och texten nedan.</div>
+      </figcaption>
+    </figure>
+
+    <div class="col">
+      <p>Cepeda m.fl. (2008) mätte detta direkt på drygt 1 350 deltagare. Det optimala mellanrummet växer med tiden fram till provet, men långsammare än tiden själv:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Tid till provet</th><th>Optimalt mellanrum</th><th>Andel av tiden</th></tr></thead>
+          <tbody>
+            <tr><td>1 vecka</td><td class="n">≈ 3 dagar</td><td class="n">43 %</td></tr>
+            <tr><td>5 veckor</td><td class="n">≈ 8 dagar</td><td class="n">23 %</td></tr>
+            <tr class="hi"><td>10 veckor</td><td class="n">≈ 12 dagar</td><td class="n">17 %</td></tr>
+            <tr><td>1 år</td><td class="n">≈ 27 dagar</td><td class="n">8 %</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Två saker följer av tabellen. <strong>Schemat bestäms av tentamensdatumet</strong>, inte av den subjektiva känslan av beredskap. Och någon fast procentsats finns inte: andelen sjunker från drygt 40 % till under 10 % när horisonten växer, vilket författarna uttryckligen framhåller mot äldre tumregler. För en kurs på tio veckor landar optimum kring tolv dagar.</p>
+      <p class="note key">Effekten av att träffa rätt är stor. Jämfört med att repetera samma dag gav det optimala mellanrummet <strong>64 % bättre resultat</strong> på slutprovet (<span class="num">d = 1,1</span>).</p>
+      <p>Ange din egen kurs nedan.</p>
+    </div>
+
+    <div class="ix" id="ix-schedule">
+      <div class="ix-head">
+        <span class="ix-tag">Verktyg</span>
+        <span class="ix-title">Repetitionsschema</span>
+      </div>
+      <div class="ix-body" id="schedule-body"></div>
+    </div>
+
+    <!-- ---------------- 3.3 Interleaving ---------------- -->
+    <div class="col">
+      <h3>3.3 Interfolierad inlärning <span style="color:var(--ink-3);font-weight:400">(interleaving)</span></h3>
+      <p>Detta är den minst kända av de tre strategierna och den som möjligtvis kan ha störst betydelse för en matematikkurs.</p>
+      <p>Övningsuppgifter presenteras nästan alltid <strong>blockat</strong>: samtliga gränsvärden som kräver konjugatförlängning står under rubriken ”Konjugatförlängning”. Avsnittet läses, uppgifterna löses och arbetet förlöper väl. Notera dock vad som aldrig utfördes: avgörandet av vilken omskrivning uttrycket kräver. Rubriken har redan besvarat den frågan.</p>
+      <p>Vid tentamen saknas rubriker. Där är ett av stegen alltid att identifiera en lämplig metod, och det steget har inte övats.</p>
+      <p>Tentamen är dock inte slutmålet. Det som övas är förmågan att avgöra vad ett problem kräver, och den följer med vidare. Ett verkligt problem i yrkeslivet kommer inte heller med en rubrik över sig. Hattie och Donoghue (2016) placerar sådan överföring till nya sammanhang i en egen fas, bortom att tillägna sig och befästa ett stoff: blockad övning tränar att utföra en metod man fått anvisad, blandad övning att välja den.</p>
+      <p>Nedan prövas skillnaden i två pass. Det första är blockat, i enlighet med en vanlig uppgiftssamling.</p>
+    </div>
+
+    <div class="ix" id="ix-interleave">
+      <div class="ix-head">
+        <span class="ix-tag">Övning</span>
+        <span class="ix-title">Blockad och blandad övning</span>
+      </div>
+      <div class="ix-body" id="interleave-body"></div>
+      <div class="ix-foot" id="interleave-foot"></div>
+    </div>
+
+    <div class="col">
+      <div class="box key">
+        <h4>Tolkning av övningen</h4>
+        <p style="margin:0">I det blockade passet var uppgiften att utföra en given omskrivning. I det blandade passet var uppgiften att avgöra <strong>vilken</strong> omskrivning som behövs. Uttrycken är likartade, det kognitiva arbetet är det inte. Det är den senare frågan som ställs vid tentamen.</p>
+      </div>
+      <p>Interfoliering ger dessutom fördelning över tid: om varje moment återkommer i de följande inlämningarna är övningen per definition utspridd. De två strategierna sammanfaller, och det är så Bennoun-studien är upplagd.</p>
+      <p class="note warn">En notis: blandad övning <strong>upplevs ofta som mindre framgångsrik</strong>. Felen blir fler, arbetet går långsammare och de flesta uppfattar under passet att de lär sig mindre. Rohrer och Taylor (2007) mätte båda delarna. Under övningspasset löste den blockade gruppen <strong>89 %</strong> rätt mot den blandade gruppens <strong>60 %</strong>. På provet en vecka senare var förhållandet det omvända, och med bred marginal: <strong>63 % mot 20 %</strong>. Den subjektiva upplevelsen under passet är alltså en missvisande indikator, vilket är kärnan i begreppet desirable difficulties.</p>
+    </div>
+
+    <!-- ---------------- 3.4 Bennoun ---------------- -->
+    <div class="col">
+      <h3>3.4 Typexemplet: Bennoun, Yan &amp; Xu (2026)</h3>
+      <p>Hittills har principerna behandlats. Följande studie prövar dem i vanlig undervisning, i en kurs som kan jämföras med MAGA51: <em>calculus for life sciences</em> vid UCLA, 585 studenter.</p>
+      <p>Designen utesluter merparten av de alternativa förklaringar som annars skulle kunna anföras: samma lärare, samma kurs och <strong>exakt samma uppgifter</strong> i båda villkoren, med enbart ordningen som skillnad. Sektionerna bytte dessutom villkor vid halvtid, så varje sektion blir sin egen kontroll.</p>
+    </div>
+
+    <figure class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Designen: 2 × 2, motbalanserad</span>
+        <span class="panel-kicker">10 veckor, två faser</span>
+      </div>
+      <div id="fig-design"></div>
+      <figcaption class="caption">
+        Blockat: samtliga uppgifter behandlar veckans moment. Blandat och spritt: varje moment återkommer på de <b>tre följande</b> inlämningarna. Samma uppgifter, annan ordning.
+        <div class="source">Bennoun, Yan &amp; Xu (2026), npj Science of Learning.</div>
+      </figcaption>
+    </figure>
+
+    <div class="ix" id="ix-predict2">
+      <div class="ix-head">
+        <span class="ix-tag">Förutsägelse</span>
+        <span class="ix-title">Vid vilket prov framkom skillnaden?</span>
+      </div>
+      <div class="ix-body" id="predict2-body"></div>
+    </div>
+
+    <figure class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Mittermin och slutexamen</span>
+        <span class="panel-kicker">Medelresultat</span>
+      </div>
+      <div id="fig-bennoun"></div>
+      <figcaption class="caption">
+        Ingen huvudeffekt vid mitterminen (<span class="num">d = 0,11</span>, ej signifikant). Vid slutexamen <b>87,9 % mot 83,1 %</b> (<span class="num">d = 0,32</span>, <span class="num">p &lt; 0,001</span>). Effekten kräver tid för att framträda, vilket stämmer med glömskekurvan.
+        <div class="source">Bennoun, Yan &amp; Xu (2026). Sektionerna bytte villkor vid halvtid, vilket är varför sektionsnamnen växlar mellan panelerna.</div>
+      </figcaption>
+    </figure>
+
+    <div class="col">
+      <p>Vid mitterminen förelåg ingen huvudeffekt, men skillnaden mellan studenter från underrepresenterade grupper (URM) och övriga minskade från <span class="num">d = 1,16</span> till <span class="num">d = 0,80</span>. Vid slutexamen syns det väsentligaste mönstret: <strong>vinsten var störst bland dem med svagast utgångsläge.</strong></p>
+    </div>
+
+    <figure class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Vem vann på blandade läxor?</span>
+        <span class="panel-kicker">Förväntat slutresultat efter mitterminsresultat</span>
+      </div>
+      <div class="legend" id="interact-legend"></div>
+      <div id="fig-interaction"></div>
+      <figcaption class="caption">
+        Linjerna skär varandra långt ut till höger. <b>83 % av kursdeltagarna</b> befann sig till vänster om skärningspunkten, det vill säga i det intervall där blandade läxor gav en positiv effekt (interaktion <span class="num">β = −0,26</span>, <span class="num">p &lt; 0,001</span>). Samma mönster återkom bland förstagenerationsstudenter och bland studenter med svagare gymnasiematematik.
+        <div class="source">Bennoun, Yan &amp; Xu (2026). Resultat i z-poäng.</div>
+      </figcaption>
+    </figure>
+
+    <figure class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Vinst på slutexamen per grupp</span>
+        <span class="panel-kicker">Standardavvikelser</span>
+      </div>
+      <div id="fig-groups"></div>
+      <figcaption class="caption">
+        Störst vinst gjorde studenterna med svagast matematisk bakgrund. Minst vann de som redan läst analys på gymnasiet, vilka i viss mån redan utfört det urskiljningsarbete som blandningen tränar.
+        <div class="source">Bennoun, Yan &amp; Xu (2026). URM = underrepresenterad minoritet i amerikansk mening.</div>
+      </figcaption>
+    </figure>
+
+    <div class="col">
+      <div class="box method">
+        <h4>Metodologiska invändningar</h4>
+        <ul style="margin:0">
+          <li><strong>Kvasiexperimentell.</strong> Randomiseringen skedde på sektionsnivå, inte individnivå.</li>
+          <li><strong>Takeffekter.</strong> Den 75:e percentilen låg på 97 % vid slutexamen. Utrymmet för förbättring i fördelningens övre del är därmed begränsat, vilket kan förstärka intrycket att de svagaste vann mest.</li>
+          <li><strong>Möjliga carryover-effekter</strong> när sektionerna bytte villkor vid halvtid.</li>
+          <li><strong>En kurs, en lärare, ett lärosäte.</strong></li>
+        </ul>
+      </div>
+      <p>Värt att notera är vad interventionen inte förutsätter: inga ytterligare resurser, ingen ny teknik och ingen utökad tid. Samma uppgifter i annan ordning.</p>
+    </div>
+
+    <div class="ix" id="ix-q3">
+      <div class="ix-head">
+        <span class="ix-tag">Kontrollfrågor</span>
+        <span class="ix-title">Del 3</span>
+      </div>
+      <div class="ix-body" id="q3-body"></div>
+    </div>
+  </section>
+
+  <!-- ============================ SLUT ============================ -->
+  <section class="part" id="slut">
+    <div class="parthead">
+      <span class="partnum">Sammanfattning</span>
+      <h2>Från offloading till onboarding</h2>
+      <p class="partsub">Fyra slutsatser, samt ett användningssätt för AI som är förenligt med evidensen.</p>
+    </div>
+
+    <div class="col">
+      <ol style="font-size:17.5px">
+        <li><strong>Upplevd effektivitet är inte ett mått på lärande.</strong> Kort läxtid i kombination med höga poäng var typiskt för de elever som förlorade mest.</li>
+        <li><strong>Ansträngningen är lärandet.</strong> Bibehåll den tid som ägnas åt uppgiften, och använd AI efter det egna försöket snarare än i stället för det.</li>
+        <li><strong>Övningens struktur har lika stor betydelse som verktyget.</strong> Blanda moment, fördela dem över tid och återvänd till tidigare avsnitt.</li>
+        <li><strong>Kombinera de båda.</strong> Låt AI generera blandade uppgiftsuppsättningar från tidigare avsnitt och granska det egna resonemanget. Det motsvarar supplement-läget tillämpat på den egna studiesituationen. Låt inte verktyget lösa veckans uppgifter.</li>
+      </ol>
+
+      <h3>Samma verktyg, andra instruktioner</h3>
+      <p>Skillnaden mellan de båda uppsättningarna nedan ligger inte i promptens komplexitet, utan i <strong>vem som utför det kognitiva arbetet därefter</strong>.</p>
+    </div>
+
+    <div class="col">
+      <h4>Offloading: arbetet faller bort</h4>
+    </div>
+    <div class="prompts" id="prompts-bad"></div>
+    <div class="col">
+      <h4>Onboarding: arbetet återinförs</h4>
+    </div>
+    <div class="prompts" id="prompts-good"></div>
+
+    <div class="col">
+      <p class="note key">De senare prompterna är de tre strategierna i del 3, formulerade som instruktioner: <strong>testning</strong> (”ge mig inte svaret, ställ frågor”), <strong>fördelning över tid</strong> (”lägg till två frågor från något vi gick igenom för minst en vecka sedan”) och <strong>interfoliering</strong> (”tre problem som ser likadana ut men kräver olika metoder”). Det är på detta sätt standalone-situationen kan ges egenskaper som närmar sig supplement.</p>
+    </div>
+
+    <div class="col">
+      <h3>Avslutande test</h3>
+      <p>Tolv frågor hämtade från samtliga tre delar och presenterade i annan ordning än framställningen. Dispositionen är avsiktlig: det är materialets sista tillämpning av del 3 på sig självt.</p>
+    </div>
+
+    <div class="ix" id="ix-final">
+      <div class="ix-head">
+        <span class="ix-tag">Avslutande test</span>
+        <span class="ix-title">Blandade frågor från samtliga delar</span>
+      </div>
+      <div class="ix-body" id="final-body"></div>
+      <div class="ix-foot" id="final-foot"></div>
+    </div>
+  </section>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="footer">
+    <div class="col">
+      <h4>Källor</h4>
+      <ol class="reflist">
+        <li>Strömberg, D., Lei, V., &amp; Wu, Y. (2026). <em>The Generative AI Learning Penalty: Evidence from Chinese Secondary Education.</em> Preprint, juni 2026.</li>
+        <li>Strohmaier, A., Bödefeld, S., Straser, O., &amp; Reinhold, F. (2026). <em>LLAMA LIMA: A Living Meta-Analysis on the Effects of Generative AI on Learning Mathematics</em> (version 5, 09/26). arXiv. Ej peer-granskad.</li>
+        <li>Bennoun, S., Yan, V. X., &amp; Xu, A. (2026). Mixing problems increases performance of all students but especially of low-achieving ones in college calculus. <em>npj Science of Learning.</em></li>
+        <li>The Economist (2026-08-18). Does AI stop children from learning? <em>Graphic detail.</em></li>
+      </ol>
+      <h4>Bakgrundslitteratur till del 3</h4>
+      <ol class="reflist" start="5">
+        <li>Roediger, H. L., &amp; Karpicke, J. D. (2006). Test-enhanced learning: taking memory tests improves long-term retention. <em>Psychological Science, 17</em>(3).</li>
+        <li>Roediger, H. L., &amp; Karpicke, J. D. (2006). The power of testing memory: basic research and implications for educational practice. <em>Perspectives on Psychological Science, 1</em>(3).</li>
+        <li>Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., &amp; Rohrer, D. (2006). Distributed practice in verbal recall tasks: a review and quantitative synthesis. <em>Psychological Bulletin, 132</em>(3).</li>
+        <li>Cepeda, N. J., Vul, E., Rohrer, D., Wixted, J. T., &amp; Pashler, H. (2008). Spacing effects in learning: a temporal ridgeline of optimal retention. <em>Psychological Science, 19</em>(11).</li>
+        <li>Rohrer, D., &amp; Taylor, K. (2007). The shuffling of mathematics problems improves learning. <em>Instructional Science, 35</em>(6).</li>
+        <li>Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J., &amp; Willingham, D. T. (2013). Improving students' learning with effective learning techniques. <em>Psychological Science in the Public Interest, 14</em>(1).</li>
+        <li>Hattie, J. A. C., &amp; Donoghue, G. M. (2016). Learning strategies: a synthesis and conceptual model. <em>npj Science of Learning, 1</em>, 16013.</li>
+        <li>Donoghue, G. M., &amp; Hattie, J. A. C. (2021). A meta-analysis of ten learning techniques. <em>Frontiers in Education, 6</em>, 581216.</li>
+        <li>Bjork, E. L., &amp; Bjork, R. A. (2011). Making things hard on yourself, but in a good way: creating desirable difficulties to enhance learning. I M. A. Gernsbacher m.fl. (red.), <em>Psychology and the real world</em>. Worth Publishers.</li>
+        <li>Risko, E. F., &amp; Gilbert, S. J. (2016). Cognitive offloading. <em>Trends in Cognitive Sciences, 20</em>(9), 676–688.</li>
+        <li>Kosmyna, N., m.fl. (2025). Your brain on ChatGPT: accumulation of cognitive debt when using an AI assistant for essay writing task. Arbetspapper, MIT Media Lab.</li>
+        <li>Heckman, J. J., &amp; Corbin, C. O. (2016). Capabilities and skills. <em>Journal of Human Development and Capabilities, 17</em>(3).</li>
+        <li>Brown, C., Kaur, S., Kingdon, G., &amp; Schofield, H. (2025). Cognitive endurance as human capital. <em>The Quarterly Journal of Economics, 140</em>(2), 943–1002.</li>
+      </ol>
+      <p style="margin-top:18px">MAGA51, Karlstads universitet, ht 2026. Sidan hämtar inget externt innehåll och överför inga uppgifter. Svaren lagras endast lokalt i den egna webbläsaren.</p>
+      <div class="btnrow" style="margin-top:18px">
+        <button class="btn" id="reset-all" style="font-size:12.5px;padding:6px 11px">Nollställ alla svar på sidan</button>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+var DATA={"dens":{"laxpoang":{"medAI":[[80.832,1.7074e-05],[81.845,1.7074e-05],[82.858,3.4148e-05],[83.871,8.537e-06],[84.884,0.000102444],[85.897,8.537e-05],[86.91,0.000247573],[87.923,0.000418314],[88.936,0.000682961],[89.949,0.001195182],[90.962,0.001442755],[91.975,0.002202549],[92.988,0.003133084],[94.001,0.00460145],[95.014,0.00625763],[96.027,0.007708922],[97.04,0.009791954],[98.053,0.011806689],[99.066,0.013949479],[100.079,0.015895918],[101.092,0.017543562],[102.105,0.019361945],[103.118,0.020915681],[104.131,0.021726698],[105.144,0.023553619],[106.157,0.025423225],[107.17,0.024945151],[108.183,0.026584258],[109.196,0.028155068],[110.209,0.029256344],[111.222,0.030255174],[112.235,0.029939303],[113.248,0.0310918],[114.261,0.034361478],[115.274,0.03486516],[116.287,0.039910536],[117.3,0.04189112],[118.313,0.047115773],[119.326,0.052989237],[120.339,0.056506488],[121.352,0.060433514],[122.365,0.059272479],[123.378,0.053356331],[124.391,0.040141035],[125.404,0.028018476],[126.417,0.016843526],[127.43,0.008221143],[128.443,0.003909952],[129.456,0.000870775],[130.469,0.000102444]],"aldrig":[[81.336,5.6193e-05],[82.827,5.6193e-05],[83.573,0.000112385],[84.319,0.000309059],[85.064,0.000309059],[85.81,0.000505733],[86.555,0.000646214],[87.301,0.001713871],[88.046,0.002079123],[88.792,0.003849187],[89.537,0.005225903],[90.283,0.008147913],[91.028,0.012587122],[91.774,0.016492501],[92.519,0.022027463],[93.265,0.028826755],[94.011,0.03778946],[94.756,0.042762496],[95.502,0.054759596],[96.247,0.061362214],[96.993,0.069762997],[97.738,0.078697607],[98.484,0.085581183],[99.229,0.085412607],[99.975,0.086339787],[100.72,0.092492864],[101.466,0.083895408],[102.211,0.081816286],[102.957,0.07161735],[103.703,0.068358183],[104.448,0.057316355],[105.194,0.046246432],[105.939,0.038098518],[106.685,0.030737301],[107.43,0.021296959],[108.176,0.015649613],[108.921,0.011210405],[109.667,0.007024063],[110.412,0.0044954],[111.158,0.002612951],[111.903,0.001489101],[112.649,0.000646214],[113.394,0.000533829],[114.14,0.000252866],[114.886,0.000112385]],"foreAI":[[78.005,1.1903e-05],[78.777,2.3807e-05],[79.55,1.1903e-05],[80.322,1.1903e-05],[81.094,4.7613e-05],[81.867,0.000119033],[82.639,0.00010713],[83.412,0.000297583],[84.184,0.000380907],[84.956,0.000726103],[85.729,0.001095107],[86.501,0.001761694],[87.273,0.002666347],[88.046,0.003380547],[88.818,0.005439825],[89.591,0.007689555],[90.363,0.009784542],[91.135,0.01334364],[91.908,0.018462075],[92.68,0.023592412],[93.453,0.029615501],[94.225,0.036519434],[94.997,0.042566329],[95.77,0.052231841],[96.542,0.059159581],[97.314,0.069467872],[98.087,0.075740926],[98.859,0.080537975],[99.632,0.084977917],[100.404,0.088679858],[101.176,0.089667834],[101.949,0.087382391],[102.721,0.079680935],[103.494,0.071289085],[104.266,0.064016141],[105.038,0.052505616],[105.811,0.043661438],[106.583,0.033079371],[107.356,0.024116158],[108.128,0.016819414],[108.9,0.009867866],[109.673,0.006320672],[110.445,0.003785261],[111.217,0.002190214],[111.99,0.0010713],[112.762,0.000488037],[113.535,0.000166647],[114.307,3.571e-05],[115.079,5.9517e-05],[115.852,3.571e-05]]},"laxtid":{"medAI":[[23.946,7.9837e-05],[25.055,6.2095e-05],[26.164,9.7578e-05],[27.273,0.00034596],[28.382,0.000629824],[29.491,0.000895946],[30.601,0.001304001],[31.71,0.002421717],[32.819,0.004204739],[33.928,0.005180522],[35.037,0.007628851],[36.146,0.01077797],[37.255,0.015843172],[38.364,0.021706741],[39.473,0.027117904],[40.582,0.029761389],[41.691,0.040699031],[42.8,0.049161736],[43.909,0.061953366],[45.018,0.060569528],[46.127,0.057163157],[47.236,0.04478845],[48.345,0.047467422],[49.454,0.039474867],[50.564,0.03762975],[51.673,0.031695213],[52.782,0.029894451],[53.891,0.027827565],[55.0,0.024660705],[56.109,0.023826852],[57.218,0.022318825],[58.327,0.0213253],[59.436,0.020464836],[60.545,0.021405136],[61.654,0.020615639],[62.763,0.019914849],[63.872,0.018193923],[64.981,0.015044804],[66.09,0.012685183],[67.199,0.008950594],[68.308,0.006271625],[69.417,0.004408766],[70.527,0.002270914],[71.636,0.001259647],[72.745,0.000833851],[73.854,0.000496762],[74.963,0.000204027],[76.072,8.8708e-05],[77.181,2.6612e-05],[78.29,1.7742e-05]],"aldrig":[[51.443,0.000148681],[52.084,3.717e-05],[52.725,0.000297362],[53.366,0.000520383],[54.007,0.001672659],[54.648,0.001970021],[55.289,0.004088722],[55.929,0.006616295],[56.57,0.012080315],[57.211,0.017916035],[57.852,0.025275735],[58.493,0.035571881],[59.134,0.046276897],[59.775,0.056015488],[60.416,0.071738482],[61.057,0.079841584],[61.698,0.092851155],[62.339,0.10147464],[62.98,0.10935473],[63.621,0.10574921],[64.262,0.10615809],[64.903,0.10299862],[65.544,0.096716858],[66.185,0.088130541],[66.826,0.076236077],[67.467,0.067352399],[68.108,0.058208533],[68.749,0.047503512],[69.39,0.039288901],[70.031,0.031892031],[70.672,0.022934012],[71.313,0.015611484],[71.954,0.013455612],[72.595,0.00758272],[73.236,0.006541955],[73.877,0.00367985],[74.517,0.002601914],[75.158,0.001412468],[75.799,0.000929255],[76.44,0.000817744],[77.081,0.000260191],[77.722,0.000111511],[78.363,0.000148681],[79.004,3.717e-05],[80.286,3.717e-05]],"foreAI":[[51.712,9.7702e-05],[52.348,0.000113985],[52.984,0.000195403],[53.62,0.000618777],[54.256,0.001221271],[54.891,0.002263423],[55.527,0.004005769],[56.163,0.007457896],[56.799,0.011724203],[57.435,0.017097797],[58.071,0.025907231],[58.706,0.034390997],[59.342,0.045528989],[59.978,0.055673681],[60.614,0.067739844],[61.25,0.076760963],[61.886,0.087882675],[62.521,0.096594408],[63.157,0.10144693],[63.793,0.099965118],[64.429,0.10454081],[65.065,0.10297758],[65.701,0.096187316],[66.336,0.09139993],[66.972,0.083795488],[67.608,0.074676663],[68.244,0.06355495],[68.88,0.052400675],[69.516,0.042581655],[70.151,0.033430263],[70.787,0.026314322],[71.423,0.019540338],[72.059,0.014003909],[72.695,0.010421514],[73.33,0.007457896],[73.966,0.004771099],[74.602,0.002979902],[75.238,0.002182005],[75.874,0.000863032],[76.51,0.000863032],[77.145,0.000374523],[77.781,0.000227971],[78.417,0.000162836],[79.053,0.000211687],[79.689,4.8851e-05],[80.325,3.2567e-05],[80.96,1.6284e-05],[81.596,1.6284e-05],[82.232,3.2567e-05]]},"provpoang":{"medAI":[[17.051,1.4598e-05],[19.385,1.4598e-05],[21.718,3.6495e-05],[24.052,5.3525e-05],[26.385,7.2989e-05],[28.719,0.000145979],[31.053,0.000248164],[33.386,0.000396575],[35.72,0.000586347],[38.054,0.000790717],[40.387,0.001138633],[42.721,0.001715248],[45.054,0.002330791],[47.388,0.002846582],[49.722,0.003578908],[52.055,0.004437749],[54.389,0.00554232],[56.722,0.006415758],[59.056,0.007505732],[61.39,0.008128573],[63.723,0.009432648],[66.057,0.010729425],[68.39,0.011916718],[70.724,0.012928835],[73.058,0.013641697],[75.391,0.01514771],[77.725,0.016237684],[80.059,0.017286295],[82.392,0.018658495],[84.726,0.019466242],[87.059,0.020908998],[89.393,0.021317737],[91.727,0.0224807],[94.06,0.022424743],[96.394,0.022485565],[98.727,0.02194058],[101.061,0.020799514],[103.395,0.01909643],[105.728,0.01673401],[108.062,0.014099097],[110.396,0.010600477],[112.729,0.008306181],[115.063,0.006048379],[117.396,0.004055772],[119.73,0.002544893],[122.064,0.001615496],[124.397,0.000844243],[126.731,0.000435503],[129.064,0.000201937],[131.398,9.002e-05],[133.732,3.4062e-05],[136.065,9.732e-06]],"aldrig":[[56.81,6.043e-06],[60.005,6.043e-06],[61.602,1.2085e-05],[63.199,5.4384e-05],[64.797,3.6256e-05],[66.394,0.000163152],[67.992,0.000223579],[69.589,0.000435072],[71.186,0.000513627],[72.784,0.001069553],[74.381,0.001438156],[75.979,0.001903442],[77.576,0.00296091],[79.173,0.004078804],[80.771,0.005813052],[82.368,0.007837347],[83.966,0.010816385],[85.563,0.012834637],[87.16,0.016146023],[88.758,0.019777669],[90.355,0.024424484],[91.952,0.028454948],[93.55,0.031524625],[95.147,0.035591345],[96.745,0.037857346],[98.342,0.039525125],[99.939,0.040087093],[101.537,0.039821215],[103.134,0.038123224],[104.732,0.03635272],[106.329,0.033397853],[107.926,0.030050213],[109.524,0.026811341],[111.121,0.022702323],[112.719,0.018327428],[114.316,0.014393647],[115.913,0.012073261],[117.511,0.009112351],[119.108,0.007027629],[120.706,0.004719328],[122.303,0.003456409],[123.9,0.002217661],[125.498,0.00146837],[127.095,0.001190407],[128.692,0.000598225],[130.29,0.000356518],[131.887,0.000132939],[133.485,7.8555e-05],[135.082,1.8128e-05]],"foreAI":[[54.309,2.494e-06],[55.936,4.988e-06],[57.563,7.482e-06],[59.191,3.7408e-05],[60.818,4.9878e-05],[62.446,7.731e-05],[64.073,0.000172078],[65.701,0.000202005],[67.328,0.000443911],[68.955,0.000528703],[70.583,0.00084792],[72.21,0.001304301],[73.838,0.00179809],[75.465,0.002391634],[77.093,0.003394174],[78.72,0.004808206],[80.347,0.006464144],[81.975,0.008658761],[83.602,0.011042912],[85.23,0.014160266],[86.857,0.017589355],[88.485,0.02133018],[90.112,0.024662007],[91.739,0.028063662],[93.367,0.031380527],[94.994,0.034891915],[96.622,0.036181252],[98.249,0.037395772],[99.876,0.038198803],[101.504,0.036557827],[103.131,0.035916898],[104.759,0.033996612],[106.386,0.031692263],[108.014,0.028165912],[109.641,0.025220636],[111.268,0.022208026],[112.896,0.018250234],[114.523,0.014596696],[116.151,0.011609024],[117.778,0.008466732],[119.406,0.00696292],[121.033,0.004875541],[122.66,0.003561265],[124.288,0.002401609],[125.915,0.001655938],[127.543,0.00098259],[129.17,0.000598532],[130.798,0.000331686],[132.425,0.000214474],[134.052,7.4816e-05],[135.68,2.4939e-05],[137.307,4.988e-06],[138.935,7.482e-06]]}},"fig5":{"hw_ai":[[23.0,121.29,118.66,121.44],[24.0,121.31,116.23,121.79],[25.0,115.31,114.95,116.09],[26.0,118.03,116.22,119.95],[27.0,119.36,116.54,121.1],[28.0,120.31,117.11,121.67],[29.0,120.96,117.04,121.85],[30.0,120.53,118.56,121.59],[31.0,119.84,116.96,121.54],[32.0,120.5,116.88,121.7],[33.0,120.53,117.0,121.94],[34.0,120.03,117.04,121.98],[35.0,120.22,117.28,121.92],[36.0,119.85,117.04,121.73],[37.0,119.69,117.19,122.17],[38.0,119.85,117.34,122.07],[39.0,120.74,117.73,122.73],[40.0,120.48,117.8,122.82],[41.0,120.57,118.23,122.92],[42.0,120.65,118.44,123.4],[43.0,121.16,118.69,123.84],[44.0,121.47,118.91,124.3],[45.0,121.06,118.02,123.89],[46.0,120.42,116.31,122.85],[47.0,119.6,115.12,123.0],[48.0,118.59,113.92,123.16],[49.0,116.33,112.04,120.95],[50.0,114.8,110.65,120.02],[51.0,112.7,109.07,116.17],[52.0,111.43,108.19,114.87],[53.0,110.53,107.42,113.5],[54.0,109.98,106.83,112.81],[55.0,109.2,105.75,112.01],[56.0,108.24,104.55,111.16],[57.0,106.79,102.63,110.34],[58.0,105.78,101.83,109.7],[59.0,104.29,100.62,108.04],[60.0,103.35,99.53,106.84],[61.0,102.78,99.27,106.46],[62.0,102.65,98.98,105.89],[63.0,101.95,98.66,105.32],[64.0,101.65,98.38,104.78],[65.0,101.24,98.02,104.83],[66.0,101.65,98.42,104.68],[67.0,101.19,98.3,104.68],[68.0,101.35,98.3,104.45],[69.0,101.66,98.41,104.28],[70.0,101.46,97.76,104.77],[71.0,101.6,99.53,104.28],[72.0,101.28,97.95,105.23],[73.0,101.69,99.68,104.85],[74.0,102.63,100.39,105.73],[75.0,104.06,99.36,104.74],[76.0,102.77,102.17,105.48],[78.0,108.48,107.42,109.55]],"hw_no":[[51.0,98.65,95.71,101.59],[52.0,99.3,96.7,100.48],[53.0,98.72,96.23,102.24],[54.0,98.3,94.42,101.02],[55.0,99.13,96.13,102.14],[56.0,99.8,96.47,102.58],[57.0,99.94,96.24,103.12],[58.0,99.96,96.55,102.97],[59.0,100.41,96.88,103.2],[60.0,100.35,96.88,103.43],[61.0,100.46,97.19,103.33],[62.0,100.61,97.31,103.49],[63.0,100.43,97.16,103.44],[64.0,100.49,97.38,103.42],[65.0,100.44,97.43,103.36],[66.0,100.44,97.46,103.26],[67.0,100.58,97.73,103.42],[68.0,100.67,97.69,103.45],[69.0,100.62,97.73,103.36],[70.0,100.99,98.02,103.66],[71.0,101.03,98.07,103.91],[72.0,101.03,98.22,103.86],[73.0,101.6,98.62,104.15],[74.0,101.31,98.66,104.23],[75.0,101.38,98.36,105.04],[76.0,102.17,98.22,105.44],[77.0,101.0,96.55,105.25],[78.0,101.15,97.23,103.69],[79.0,103.6,100.84,107.65],[80.0,100.93,99.32,102.54],[81.0,103.09,98.3,107.88],[82.0,103.59,102.63,104.55]],"exam_ai":[[23.0,71.06,62.61,78.25],[24.0,69.38,58.96,76.89],[25.0,91.38,77.31,94.73],[26.0,85.09,70.16,92.17],[27.0,74.37,63.21,84.03],[28.0,71.97,58.62,82.27],[29.0,73.51,62.25,86.32],[30.0,77.95,66.22,87.68],[31.0,76.23,65.67,86.18],[32.0,72.43,61.68,82.75],[33.0,73.11,62.33,81.76],[34.0,72.19,62.26,82.76],[35.0,72.56,61.09,84.06],[36.0,71.75,59.97,83.79],[37.0,71.73,61.32,82.39],[38.0,75.55,65.51,85.74],[39.0,75.21,65.14,85.62],[40.0,75.21,63.85,86.66],[41.0,73.73,62.26,84.8],[42.0,73.81,62.78,85.87],[43.0,74.12,62.87,85.86],[44.0,76.52,65.91,87.47],[45.0,78.6,67.19,89.4],[46.0,80.62,68.66,91.66],[47.0,82.38,69.56,93.07],[48.0,84.72,73.94,95.72],[49.0,88.07,78.13,97.22],[50.0,90.97,81.36,100.02],[51.0,93.94,85.27,102.26],[52.0,95.09,86.96,102.96],[53.0,95.89,87.39,103.66],[54.0,96.36,88.31,103.99],[55.0,97.17,89.45,104.81],[56.0,97.44,89.29,104.81],[57.0,97.94,90.46,105.31],[58.0,98.53,90.96,105.51],[59.0,98.78,91.29,105.71],[60.0,99.11,91.74,105.86],[61.0,99.49,92.73,106.02],[62.0,99.97,93.41,106.52],[63.0,100.38,93.3,106.2],[64.0,100.15,92.82,106.62],[65.0,100.09,92.7,107.73],[66.0,100.77,93.49,107.66],[67.0,101.23,93.94,107.55],[68.0,101.03,94.13,107.74],[69.0,101.58,94.38,107.6],[70.0,101.44,94.5,107.9],[71.0,102.49,95.72,108.99],[72.0,102.17,96.42,112.95],[73.0,102.29,96.36,112.26],[74.0,101.46,95.34,110.32],[75.0,99.95,96.27,106.1],[76.0,105.07,99.63,111.59],[78.0,119.48,118.45,120.5]],"exam_no":[[51.0,92.33,91.87,94.4],[52.0,85.78,82.81,96.34],[53.0,94.71,89.11,100.99],[54.0,94.68,89.11,100.99],[55.0,95.15,89.15,101.86],[56.0,96.55,90.22,102.55],[57.0,96.81,90.52,103.54],[58.0,97.92,91.95,104.29],[59.0,98.82,92.76,105.14],[60.0,99.53,93.3,105.77],[61.0,99.91,93.58,106.38],[62.0,100.09,93.85,106.56],[63.0,99.97,93.82,106.35],[64.0,100.06,93.73,106.56],[65.0,100.19,93.76,106.72],[66.0,100.37,93.94,107.0],[67.0,100.37,93.57,107.1],[68.0,100.87,94.04,107.32],[69.0,101.38,94.64,107.92],[70.0,101.38,94.9,107.6],[71.0,101.98,95.24,108.95],[72.0,103.1,95.48,109.47],[73.0,103.82,97.06,109.97],[74.0,104.47,96.42,111.07],[75.0,103.12,97.51,109.5],[76.0,105.88,95.9,115.35],[77.0,104.8,99.15,108.11],[78.0,113.51,107.31,116.43],[79.0,104.11,95.99,112.85],[80.0,111.71,105.48,117.94],[81.0,106.94,104.33,109.55],[82.0,114.35,109.51,119.2]]},"adoption":[[2022.75,0.01085,"2022-10"],[2022.8333,0.02245,"2022-11"],[2022.9167,0.03405,"2022-12"],[2023.0,0.04215,"2023-01"],[2023.0833,0.05091,"2023-02"],[2023.1667,0.05848,"2023-03"],[2023.25,0.06647,"2023-04"],[2023.3333,0.07493,"2023-05"],[2023.4167,0.08276,"2023-06"],[2023.5,0.08784,"2023-07"],[2023.5833,0.09339,"2023-08"],[2023.6667,0.0994,"2023-09"],[2023.75,0.10548,"2023-10"],[2023.8333,0.11186,"2023-11"],[2023.9167,0.11838,"2023-12"],[2024.0,0.13364,"2024-01"],[2024.0833,0.14942,"2024-02"],[2024.1667,0.16572,"2024-03"],[2024.25,0.18213,"2024-04"],[2024.3333,0.19705,"2024-05"],[2024.4167,0.21357,"2024-06"],[2024.5,0.25344,"2024-07"],[2024.5833,0.29182,"2024-08"],[2024.6667,0.32878,"2024-09"],[2024.75,0.36675,"2024-10"],[2024.8333,0.40509,"2024-11"],[2024.9167,0.44609,"2024-12"],[2025.0,0.50755,"2025-01"],[2025.0833,0.56813,"2025-02"],[2025.1667,0.62657,"2025-03"],[2025.25,0.68778,"2025-04"],[2025.3333,0.7498,"2025-05"],[2025.4167,0.81012,"2025-06"]]};
+/* ===========================================================
+   Figurer och interaktioner. Inga externa beroenden.
+   =========================================================== */
+(function(){
+"use strict";
+
+/* ---------- små hjälpare ---------- */
+var NS="http://www.w3.org/2000/svg";
+function S(tag,attrs,kids){
+  var e=document.createElementNS(NS,tag),k;
+  if(attrs) for(k in attrs){ if(attrs[k]!==null&&attrs[k]!==undefined) e.setAttribute(k,attrs[k]); }
+  if(kids!==undefined&&kids!==null){
+    (Array.isArray(kids)?kids:[kids]).forEach(function(c){
+      e.appendChild(typeof c==="string"||typeof c==="number"?document.createTextNode(String(c)):c);
+    });
+  }
+  return e;
+}
+function H(tag,attrs,kids){
+  var e=document.createElement(tag),k;
+  if(attrs) for(k in attrs){
+    if(k==="class") e.className=attrs[k];
+    else if(k==="html") e.innerHTML=attrs[k];
+    else if(k.slice(0,2)==="on") e.addEventListener(k.slice(2),attrs[k]);
+    else if(attrs[k]!==null&&attrs[k]!==undefined) e.setAttribute(k,attrs[k]);
+  }
+  if(kids!==undefined&&kids!==null){
+    (Array.isArray(kids)?kids:[kids]).forEach(function(c){
+      e.appendChild(typeof c==="string"||typeof c==="number"?document.createTextNode(String(c)):c);
+    });
+  }
+  return e;
+}
+function svgBox(w,h){
+  return S("svg",{viewBox:"0 0 "+w+" "+h,width:"100%",preserveAspectRatio:"xMidYMid meet",
+                  style:"max-width:100%;height:auto;display:block",role:"img"});
+}
+function scale(d0,d1,r0,r1){ return function(v){ return r0+(v-d0)/(d1-d0)*(r1-r0); }; }
+function nf(v,d){ return v.toFixed(d===undefined?1:d).replace(".",","); }
+function clear(el){ while(el.firstChild) el.removeChild(el.firstChild); }
+function by(id){ return document.getElementById(id); }
+
+/* färger som CSS-variabler, alltid via style-attributet */
+var C={ink:"var(--ink)",ink2:"var(--ink-2)",ink3:"var(--ink-3)",rule:"var(--rule)",rule2:"var(--rule-2)",
+        slate:"var(--slate)",blue:"var(--blue)",orange:"var(--orange)",soft:"var(--orange-soft)",
+        surf:"var(--surface)",surf2:"var(--surface-2)",good:"var(--good)",bad:"var(--bad)"};
+
+function txt(x,y,s,o){
+  o=o||{};
+  return S("text",{x:x,y:y,"text-anchor":o.anchor||"start","dominant-baseline":o.base||"auto",
+    "font-size":o.size||11,"font-weight":o.weight||400,"letter-spacing":o.ls||0,
+    style:"fill:"+(o.fill||C.ink2)+";font-family:var(--mono)"+(o.extra||"")},s);
+}
+function smooth(pts){
+  if(pts.length<3) return pts.map(function(p,i){return (i?"L":"M")+p[0].toFixed(2)+" "+p[1].toFixed(2);}).join(" ");
+  var d="M"+pts[0][0].toFixed(2)+" "+pts[0][1].toFixed(2),i;
+  for(i=0;i<pts.length-1;i++){
+    var p0=pts[Math.max(0,i-1)],p1=pts[i],p2=pts[i+1],p3=pts[Math.min(pts.length-1,i+2)];
+    d+="C"+(p1[0]+(p2[0]-p0[0])/6).toFixed(2)+" "+(p1[1]+(p2[1]-p0[1])/6).toFixed(2)+","+
+        (p2[0]-(p3[0]-p1[0])/6).toFixed(2)+" "+(p2[1]-(p3[1]-p1[1])/6).toFixed(2)+","+
+        p2[0].toFixed(2)+" "+p2[1].toFixed(2);
+  }
+  return d;
+}
+function ma(series,win){ /* glidande medelvärde på y */
+  win=win||2;
+  return series.map(function(p,i){
+    var a=Math.max(0,i-win),b=Math.min(series.length-1,i+win),s=0,n=0,j;
+    for(j=a;j<=b;j++){ s+=series[j][1]; n++; }
+    return [p[0],s/n];
+  });
+}
+
+/* responsiv omritning */
+var renderers=[];
+function register(fn){ renderers.push(fn); fn(); }
+var rt=null;
+window.addEventListener("resize",function(){
+  clearTimeout(rt);
+  rt=setTimeout(function(){ renderers.forEach(function(f){ try{f();}catch(e){} }); },160);
+});
+function narrow(){ return window.innerWidth<700; }
+
+/* lagring */
+var STORE="maga51_ai_studiestrat_v1";
+var state={};
+try{ var raw=localStorage.getItem(STORE); if(raw) state=JSON.parse(raw)||{}; }catch(e){ state={}; }
+function save(){ try{ localStorage.setItem(STORE,JSON.stringify(state)); }catch(e){} }
+
+/* ===========================================================
+   1. ADOPTIONSKURVAN
+   =========================================================== */
+register(function(){
+  var host=by("fig-adoption"); if(!host) return; clear(host);
+  var d=DATA.adoption, w=940, h=narrow()?220:250,
+      m={t:26,r:narrow()?16:70,b:40,l:46};
+  var svg=svgBox(w,h);
+  var x=scale(0,d.length-1,m.l,w-m.r), y=scale(0,0.9,h-m.b,m.t);
+
+  [0,0.2,0.4,0.6,0.8].forEach(function(v){
+    svg.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(v),y2:y(v),style:"stroke:"+C.rule+";stroke-width:1"}));
+    svg.appendChild(txt(m.l-9,y(v),Math.round(v*100)+" %",{anchor:"end",base:"middle",size:11,fill:C.ink3}));
+  });
+
+  var pts=d.map(function(p,i){ return [x(i),y(p[1])]; });
+  var area=smooth(pts)+"L"+x(d.length-1).toFixed(2)+" "+y(0).toFixed(2)+"L"+x(0).toFixed(2)+" "+y(0).toFixed(2)+"Z";
+  svg.appendChild(S("path",{d:area,style:"fill:var(--orange-wash);stroke:none"}));
+  svg.appendChild(S("path",{d:smooth(pts),style:"fill:none;stroke:"+C.orange+";stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round"}));
+
+  /* x-etiketter: januari varje år + sista punkten */
+  d.forEach(function(p,i){
+    var lab=p[2];
+    if(lab.slice(5)==="01"||i===d.length-1){
+      svg.appendChild(S("line",{x1:x(i),x2:x(i),y1:y(0),y2:y(0)+5,style:"stroke:"+C.rule2+";stroke-width:1"}));
+      svg.appendChild(txt(x(i),y(0)+19,lab.slice(0,4),{anchor:"middle",size:11,fill:C.ink3}));
+    }
+  });
+  svg.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(0),y2:y(0),style:"stroke:"+C.rule2+";stroke-width:1"}));
+
+  /* ändpunkter */
+  svg.appendChild(S("circle",{cx:x(0),cy:y(d[0][1]),r:4.5,style:"fill:"+C.orange+";stroke:var(--surface);stroke-width:2"}));
+  svg.appendChild(S("circle",{cx:x(d.length-1),cy:y(d[d.length-1][1]),r:5.5,style:"fill:"+C.orange+";stroke:var(--surface);stroke-width:2"}));
+  svg.appendChild(txt(x(0)+10,y(d[0][1])-9,"okt 2022 · 1 %",{size:11.5,fill:C.ink2}));
+  if(narrow()){
+    svg.appendChild(txt(x(d.length-1),y(d[d.length-1][1])-16,"jun 2025 · 81 %",{anchor:"end",size:12.5,weight:600,fill:C.orange}));
+  }else{
+    svg.appendChild(txt(x(d.length-1)+11,y(d[d.length-1][1]),"jun 2025",{base:"middle",size:12.5,weight:600,fill:C.orange}));
+    svg.appendChild(txt(x(d.length-1)+11,y(d[d.length-1][1])+15,"81 %",{base:"middle",size:12.5,weight:600,fill:C.orange}));
+  }
+  host.appendChild(svg);
+});
+
+/* ===========================================================
+   2. FÖRDELNINGSFIGUREN (tre paneler, två steg)
+   =========================================================== */
+var densStep=1;
+var densCfg=[
+  {key:"laxpoang", title:"Läxpoäng", unit:"Genomsnitt utan AI = 100", x0:75, x1:135, ticks:[80,90,100,110,120,130],
+   note:"Högre läxpoäng|med AI", noteX:122, noteAt:0.86},
+  {key:"laxtid", title:"Tid för läxan", unit:"Minuter", x0:20, x1:85, ticks:[20,30,40,50,60,70,80],
+   note:"Klara med|läxan snabbare", noteX:44.5, noteAt:0.86},
+  {key:"provpoang", title:"Provpoäng", unit:"Genomsnitt utan AI = 100", x0:10, x1:150, ticks:[20,40,60,80,100,120,140],
+   note:"Men sämre|provresultat", noteX:66, noteAt:0.80}
+];
+function densPanel(cfg,w,h){
+  var m={t:52,r:14,b:34,l:14};
+  var g=S("g",{});
+  var D=DATA.dens[cfg.key];
+  var all=D.medAI.concat(D.aldrig,D.foreAI);
+  var ymax=0; all.forEach(function(p){ if(p[1]>ymax) ymax=p[1]; });
+  var x=scale(cfg.x0,cfg.x1,m.l,w-m.r), y=scale(0,ymax*1.06,h-m.b,m.t);
+
+  g.appendChild(txt(m.l,20,cfg.title,{size:15,weight:600,fill:C.ink,extra:";font-family:var(--serif)"}));
+  g.appendChild(txt(m.l,36,cfg.unit,{size:10.5,fill:C.ink3}));
+
+  function curve(series,o){
+    var pts=ma(series,1).filter(function(p){return p[0]>=cfg.x0-3&&p[0]<=cfg.x1+3;})
+                        .map(function(p){ return [x(p[0]),y(Math.max(0,p[1]))]; });
+    if(pts.length<2) return;
+    var g2=S("g",{});
+    if(o.fill){
+      var d=smooth(pts)+"L"+pts[pts.length-1][0].toFixed(2)+" "+y(0).toFixed(2)+
+            "L"+pts[0][0].toFixed(2)+" "+y(0).toFixed(2)+"Z";
+      g2.appendChild(S("path",{d:d,style:"fill:"+o.fill+";stroke:none"}));
+    }
+    g2.appendChild(S("path",{d:smooth(pts),style:"fill:none;stroke:"+o.stroke+";stroke-width:"+(o.sw||2.2)+
+      ";stroke-linejoin:round;stroke-linecap:round"+(o.dash?";stroke-dasharray:"+o.dash:"")}));
+    g.appendChild(g2);
+  }
+  /* bakgrund: axel */
+  g.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(0),y2:y(0),style:"stroke:"+C.ink3+";stroke-width:1.2"}));
+  cfg.ticks.forEach(function(t){
+    if(t<cfg.x0||t>cfg.x1) return;
+    g.appendChild(S("line",{x1:x(t),x2:x(t),y1:y(0),y2:y(0)+4,style:"stroke:"+C.rule2+";stroke-width:1"}));
+    g.appendChild(txt(x(t),y(0)+18,String(t),{anchor:"middle",size:11,fill:C.ink3}));
+  });
+
+  curve(D.foreAI,{stroke:C.blue,fill:"var(--blue-wash)"});
+  curve(D.aldrig,{stroke:C.ink,sw:2,dash:"5 4"});
+  if(densStep===2) curve(D.medAI,{stroke:C.orange,fill:"var(--orange-wash)"});
+
+  if(densStep===2&&cfg.note){
+    var parts=cfg.note.split("|"), ny=m.t+(1-cfg.noteAt)*(h-m.b-m.t);
+    var tx=x(cfg.noteX), anc="middle";
+    if(tx<m.l+46){ tx=m.l+46; } if(tx>w-m.r-46){ tx=w-m.r-46; }
+    parts.forEach(function(s,i){
+      g.appendChild(txt(tx,ny+i*14,s,{anchor:anc,size:11.5,fill:C.ink}));
+    });
+    g.appendChild(S("line",{x1:x(cfg.noteX),x2:x(cfg.noteX),y1:ny+parts.length*14-2,y2:ny+parts.length*14+22,
+      style:"stroke:"+C.ink3+";stroke-width:1.2"}));
+  }
+  return g;
+}
+function drawDens(){
+  var host=by("fig-dens"); if(!host) return; clear(host);
+  var n=narrow();
+  var pw=n?560:320, ph=n?230:280, gap=n?6:10;
+  var w=n?pw:pw*3+gap*2, h=n?ph*3+gap*2:ph;
+  var svg=svgBox(w,h);
+  densCfg.forEach(function(cfg,i){
+    var g=densPanel(cfg,pw,ph);
+    g.setAttribute("transform","translate("+(n?0:i*(pw+gap))+","+(n?i*(ph+gap):0)+")");
+    svg.appendChild(g);
+  });
+  host.appendChild(svg);
+  by("dens-step-label").textContent=densStep===1?"Steg 1 · utan AI":"Steg 2 · med AI tillagt";
+  by("dens-s1").setAttribute("aria-pressed",densStep===1?"true":"false");
+  by("dens-s2").setAttribute("aria-pressed",densStep===2?"true":"false");
+  var L=by("dens-legend"); clear(L);
+  var items=[["Före AI",C.blue,0],["Aldrig använt AI",C.ink,1]];
+  if(densStep===2) items.push(["Med AI",C.orange,0]);
+  items.forEach(function(it){
+    var sw=H("i",{class:"swatch"+(it[2]?" d":""),style:(it[2]?"color:"+it[1]:"background:"+it[1])});
+    L.appendChild(H("span",{},[sw,document.createTextNode(it[0])]));
+  });
+}
+register(drawDens);
+if(by("dens-s1")){
+  by("dens-s1").addEventListener("click",function(){ densStep=1; drawDens(); });
+  by("dens-s2").addEventListener("click",function(){ densStep=2; drawDens(); });
+}
+
+/* ===========================================================
+   3. MEKANISMEN — provpoäng efter läxtid (figur 5)
+   =========================================================== */
+register(function(){
+  var host=by("fig-mech"); if(!host) return; clear(host);
+  var ai=DATA.fig5.exam_ai, no=DATA.fig5.exam_no;
+  var w=940, h=narrow()?300:360, m={t:30,r:narrow()?16:92,b:52,l:50};
+  var xs=[],ys=[];
+  ai.concat(no).forEach(function(p){ xs.push(p[0]); ys.push(p[2],p[3]); });
+  var x0=Math.min.apply(null,xs)-2, x1=Math.max.apply(null,xs)+2;
+  var y0=Math.floor(Math.min.apply(null,ys)/10)*10, y1=Math.ceil(Math.max.apply(null,ys)/10)*10;
+  var x=scale(x0,x1,m.l,w-m.r), y=scale(y0,y1,h-m.b,m.t);
+  var svg=svgBox(w,h);
+
+  for(var v=y0;v<=y1;v+=10){
+    svg.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(v),y2:y(v),style:"stroke:"+C.rule+";stroke-width:1"}));
+    svg.appendChild(txt(m.l-9,y(v),String(v),{anchor:"end",base:"middle",size:11,fill:C.ink3}));
+  }
+  /* zon för "outsourcers" — bakom kurvorna */
+  svg.appendChild(S("rect",{x:x(x0),y:m.t,width:Math.max(0,x(48)-x(x0)),height:h-m.b-m.t,
+    style:"fill:var(--bad-wash);stroke:none"}));
+  svg.appendChild(txt(x(x0)+8,m.t+13,"Kort läxtid",{size:10.5,fill:C.ink3}));
+
+  /* referenslinje: snitt utan AI = 100 */
+  svg.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(100),y2:y(100),style:"stroke:"+C.ink3+";stroke-width:1.2;stroke-dasharray:4 4"}));
+  svg.appendChild(txt(m.l+6,y(100)-7,"Snitt utan AI = 100",{size:10.5,fill:C.ink3}));
+
+  function band(d,fill){
+    var up=d.map(function(p){return [x(p[0]),y(p[3])];});
+    var dn=d.map(function(p){return [x(p[0]),y(p[2])];}).reverse();
+    var path=smooth(up)+"L"+smooth(dn).slice(1)+"Z";
+    svg.appendChild(S("path",{d:path,style:"fill:"+fill+";stroke:none"}));
+  }
+  function line(d,col){
+    svg.appendChild(S("path",{d:smooth(d.map(function(p){return [x(p[0]),y(p[1])];})),
+      style:"fill:none;stroke:"+col+";stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round"}));
+  }
+  band(no,"var(--slate-wash)"); band(ai,"var(--orange-wash)");
+  line(no,C.slate); line(ai,C.orange);
+
+  for(var t=30;t<=80;t+=10){
+    if(t<x0||t>x1) continue;
+    svg.appendChild(S("line",{x1:x(t),x2:x(t),y1:y(y0),y2:y(y0)+5,style:"stroke:"+C.rule2+";stroke-width:1"}));
+    svg.appendChild(txt(x(t),y(y0)+19,String(t),{anchor:"middle",size:11,fill:C.ink3}));
+  }
+  svg.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(y0),y2:y(y0),style:"stroke:"+C.rule2+";stroke-width:1"}));
+  svg.appendChild(txt((m.l+w-m.r)/2,h-14,"Läxtid i minuter",{anchor:"middle",size:12,fill:C.ink2}));
+  svg.appendChild(txt(m.l-9,m.t-12,"Provpoäng",{anchor:"start",size:11,fill:C.ink3}));
+
+  /* ändetiketter */
+  var la=ai[ai.length-1], ln=no[no.length-1];
+  if(!narrow()){
+    svg.appendChild(txt(x(la[0])+10,y(la[1]),"Med AI",{base:"middle",size:12.5,weight:600,fill:C.orange}));
+    svg.appendChild(txt(x(ln[0])+10,y(ln[1]),"Utan AI",{base:"middle",size:12.5,weight:600,fill:C.slate}));
+  }else{
+    svg.appendChild(txt(x(55),y(ai[32]?ai[32][1]:110)-14,"Med AI",{size:12.5,weight:600,fill:C.orange}));
+    svg.appendChild(txt(x(55),y(no[6]?no[6][1]:100)+18,"Utan AI",{size:12.5,weight:600,fill:C.slate}));
+  }
+  /* hover */
+  var cross=S("line",{x1:0,x2:0,y1:m.t,y2:h-m.b,style:"stroke:"+C.ink3+";stroke-width:1",opacity:0});
+  var da=S("circle",{r:5,style:"fill:"+C.orange+";stroke:var(--surface);stroke-width:2",opacity:0});
+  var dn2=S("circle",{r:5,style:"fill:"+C.slate+";stroke:var(--surface);stroke-width:2",opacity:0});
+  svg.appendChild(cross); svg.appendChild(da); svg.appendChild(dn2);
+  var ro=by("mech-readout");
+  var hit=S("rect",{x:m.l,y:m.t,width:w-m.r-m.l,height:h-m.b-m.t,style:"fill:transparent;cursor:crosshair"});
+  svg.appendChild(hit);
+  function find(d,t){ var best=null,bd=1e9; d.forEach(function(p){ var q=Math.abs(p[0]-t); if(q<bd){bd=q;best=p;} }); return bd<=2.5?best:null; }
+  function move(ev){
+    var r=svg.getBoundingClientRect();
+    var cx=(ev.touches?ev.touches[0].clientX:ev.clientX);
+    var px=(cx-r.left)/r.width*w;
+    var t=Math.round(x0+(px-m.l)/(w-m.r-m.l)*(x1-x0));
+    var pa=find(ai,t), pn=find(no,t);
+    cross.setAttribute("x1",x(t)); cross.setAttribute("x2",x(t)); cross.setAttribute("opacity",1);
+    var parts=['<b>'+t+" min läxtid</b>"];
+    if(pa){ da.setAttribute("cx",x(pa[0])); da.setAttribute("cy",y(pa[1])); da.setAttribute("opacity",1);
+            parts.push('Med AI: <b>'+nf(pa[1],0)+"</b>"); } else da.setAttribute("opacity",0);
+    if(pn){ dn2.setAttribute("cx",x(pn[0])); dn2.setAttribute("cy",y(pn[1])); dn2.setAttribute("opacity",1);
+            parts.push('Utan AI: <b>'+nf(pn[1],0)+"</b>"); } else dn2.setAttribute("opacity",0);
+    if(pa&&pn) parts.push("Skillnad: <b>"+(pa[1]-pn[1]>0?"+":"")+nf(pa[1]-pn[1],0)+"</b>");
+    ro.innerHTML=parts.map(function(s){return "<span>"+s+"</span>";}).join("");
+  }
+  hit.addEventListener("mousemove",move);
+  hit.addEventListener("touchmove",function(e){ e.preventDefault(); move(e); },{passive:false});
+  hit.addEventListener("mouseleave",function(){
+    cross.setAttribute("opacity",0); da.setAttribute("opacity",0); dn2.setAttribute("opacity",0);
+    ro.textContent="Peka i figuren för att läsa av värden.";
+  });
+  host.appendChild(svg);
+
+  var L=by("mech-legend"); if(L){ clear(L);
+    [["Med AI",C.orange],["Aldrig använt AI",C.slate]].forEach(function(it){
+      L.appendChild(H("span",{},[H("i",{class:"swatch",style:"background:"+it[1]}),document.createTextNode(it[0])]));
+    });
+  }
+});
+
+/* ===========================================================
+   4. FOREST PLOT — integrationslägen
+   =========================================================== */
+var MODES=[
+  {k:"supplement",name:"Supplement",g:0.88,lo:0.64,hi:1.11,hi_light:true,
+   iv:["lärare","AI"],ctrl:["lärare"],iso:"AI:n",
+   def:"Lärare i <b>båda</b> grupperna.",
+   ex:"Klassen har sin ordinarie undervisning. Hälften av klassen får därutöver ett AI-verktyg. Skillnaden utgörs av AI:n, ovanpå undervisning."},
+  {k:"standalone",name:"Standalone",g:0.17,lo:-0.11,hi:0.50,hi_light:true,
+   iv:["AI"],ctrl:[],iso:"AI:n",
+   def:"Ingen lärare i <b>någon</b> grupp.",
+   ex:"Deltagarna arbetar på egen hand, den ena gruppen med AI och den andra med lärobok. I praktiken Bastani m.fl. (2025): 943 turkiska gymnasieelever med AI-handledare till läxorna. <b>Detta motsvarar den enskilda studiesituationen.</b>"},
+  {k:"replacement",name:"Replacement",g:0.08,lo:-0.35,hi:0.48,
+   iv:["AI"],ctrl:["lärare"],iso:"AI mot lärare",
+   def:"Lärare i kontrollgruppen, ingen i interventionen.",
+   ex:"Kontrollgruppen undervisas som vanligt, medan interventionsgruppen får AI <i>i stället för</i> läraren. Utfallet 0,08 säger främst något om svårigheten att ersätta läraren."},
+  {k:"supported",name:"Supported",g:0.71,lo:0.08,hi:1.32,
+   iv:["lärare","AI"],ctrl:[],iso:"AI + stöd",
+   def:"Ingen lärare i kontroll; lärare stöttar AI-användningen.",
+   ex:"Vilar på <b>en enda studie</b> (Luo m.fl. 2026, 95 elever) och två effektstorlekar. Raden bör lämnas utan avseende."}
+];
+var forestSel=null;
+function drawForest(){
+  var host=by("fig-forest"); if(!host) return; clear(host);
+  var n=narrow();
+  var w=940, rowH=n?56:70, h=36+MODES.length*rowH+46;
+  var leftW=n?150:430, m={r:62};
+  var x=scale(-0.55,1.5,leftW+16,w-m.r), y0=36;
+  var svg=svgBox(w,h);
+
+  if(!n){
+    svg.appendChild(txt(16,20,"LÄGE",{size:10,ls:"0.12em",fill:C.ink3}));
+    svg.appendChild(txt(126,20,"INTERVENTION",{size:10,ls:"0.12em",fill:C.ink3}));
+    svg.appendChild(txt(252,20,"KONTROLL",{size:10,ls:"0.12em",fill:C.ink3}));
+    svg.appendChild(txt(340,20,"ISOLERAR",{size:10,ls:"0.12em",fill:C.ink3}));
+  }
+  /* markering av de två jämförbara raderna */
+  svg.appendChild(S("rect",{x:4,y:y0-6,width:w-8,height:rowH*2,rx:7,style:"fill:"+C.surf2+";stroke:none"}));
+
+  /* nollinje och sammanvägd */
+  svg.appendChild(S("line",{x1:x(0),x2:x(0),y1:y0-2,y2:y0+MODES.length*rowH+4,style:"stroke:"+C.ink+";stroke-width:1.4"}));
+  svg.appendChild(S("line",{x1:x(0.57),x2:x(0.57),y1:y0-2,y2:y0+MODES.length*rowH+4,style:"stroke:"+C.ink3+";stroke-width:1;stroke-dasharray:3 3"}));
+  svg.appendChild(txt(x(0),y0-12,"Ingen effekt",{anchor:"middle",size:10,fill:C.ink3}));
+  svg.appendChild(txt(x(0.57),y0-12,"Sammanvägd 0,57",{anchor:"middle",size:10,fill:C.ink3}));
+
+  MODES.forEach(function(md,i){
+    var cy=y0+i*rowH+rowH/2;
+    var g=S("g",{style:"cursor:pointer"});
+    g.appendChild(S("rect",{x:4,y:y0+i*rowH-4,width:w-8,height:rowH-2,rx:6,
+      style:"fill:"+(forestSel===md.k?"var(--orange-wash)":"transparent")+";stroke:"+(forestSel===md.k?C.orange:"transparent")+";stroke-width:1.5"}));
+    g.appendChild(txt(16,cy,md.name,{base:"middle",size:n?12:13,weight:600,fill:C.ink}));
+
+    if(!n){
+      var bx=126;
+      md.iv.forEach(function(lbl){
+        var isAI=lbl==="AI", bw=isAI?42:58;
+        g.appendChild(S("rect",{x:bx,y:cy-15,width:bw,height:30,rx:3,style:"fill:"+(isAI?C.orange:C.slate)}));
+        g.appendChild(txt(bx+bw/2,cy+1,lbl,{anchor:"middle",base:"middle",size:11,weight:600,fill:"var(--surface)"}));
+        bx+=bw+5;
+      });
+      if(md.ctrl.length){
+        var cx2=252;
+        md.ctrl.forEach(function(lbl){
+          var isAI=lbl==="AI", bw=isAI?42:58;
+          g.appendChild(S("rect",{x:cx2,y:cy-15,width:bw,height:30,rx:3,style:"fill:"+(isAI?C.orange:C.slate)}));
+          g.appendChild(txt(cx2+bw/2,cy+1,lbl,{anchor:"middle",base:"middle",size:11,weight:600,fill:"var(--surface)"}));
+          cx2+=bw+5;
+        });
+      }else{
+        g.appendChild(S("rect",{x:252,y:cy-15,width:58,height:30,rx:3,
+          style:"fill:none;stroke:"+C.rule2+";stroke-width:1.4;stroke-dasharray:4 3"}));
+        g.appendChild(txt(281,cy+1,"–",{anchor:"middle",base:"middle",size:12,fill:C.ink3}));
+      }
+      g.appendChild(txt(340,cy+1,md.iso,{base:"middle",size:11.5,fill:C.ink2}));
+    }
+
+    var col=md.hi_light?C.orange:C.slate;
+    g.appendChild(S("line",{x1:x(md.lo),x2:x(md.hi),y1:cy,y2:cy,
+      style:"stroke:"+col+";stroke-width:6;stroke-linecap:round"}));
+    g.appendChild(S("circle",{cx:x(md.g),cy:cy,r:7,style:"fill:"+col+";stroke:var(--surface);stroke-width:2"}));
+    g.appendChild(txt(w-m.r+10,cy+1,nf(md.g,2),{base:"middle",size:13,weight:600,fill:C.ink}));
+
+    g.addEventListener("click",function(){ forestSel=forestSel===md.k?null:md.k; drawForest(); showForestDetail(); });
+    svg.appendChild(g);
+  });
+
+  var ay=y0+MODES.length*rowH+20;
+  [-0.5,0,0.5,1,1.5].forEach(function(v){
+    svg.appendChild(S("line",{x1:x(v),x2:x(v),y1:ay-8,y2:ay-4,style:"stroke:"+C.rule2+";stroke-width:1"}));
+    svg.appendChild(txt(x(v),ay+6,nf(v,1),{anchor:"middle",size:11,fill:C.ink3}));
+  });
+  svg.appendChild(S("line",{x1:x(-0.55),x2:x(1.5),y1:ay-8,y2:ay-8,style:"stroke:"+C.rule2+";stroke-width:1"}));
+  svg.appendChild(txt(x(0.5),ay+24,"Hedges' g med 95 % trovärdighetsintervall",{anchor:"middle",size:11.5,fill:C.ink2}));
+  host.appendChild(svg);
+}
+function showForestDetail(){
+  var box=by("forest-detail"); if(!box) return; clear(box);
+  if(!forestSel){
+    box.appendChild(H("div",{class:"readout"},"Klicka på en rad för definition och exempel."));
+    return;
+  }
+  var md=MODES.filter(function(m){return m.k===forestSel;})[0];
+  var d=H("div",{class:"fb"});
+  d.innerHTML="<b>"+md.name+" · g = "+nf(md.g,2)+" ["+nf(md.lo,2)+"; "+nf(md.hi,2)+"]</b><br>"+
+              md.def+" Skillnaden isolerar <b>"+md.iso+"</b>.<br><br>"+md.ex;
+  box.appendChild(d);
+}
+register(drawForest); showForestDetail();
+
+/* ===========================================================
+   5. ÖVRIGA MODERATORER
+   =========================================================== */
+var MOD={
+  langd:{title:"Interventionens längd",bf:"BF = 15,3 · R² = 0,53",
+    rows:[["En dag eller mindre",0.26,"11 studier · 36 effekter"],
+          ["En vecka eller mindre",0.74,"2 studier · 3 effekter"],
+          ["En månad eller mindre",0.69,"11 studier · 16 effekter"],
+          ["Ett år eller mindre",0.96,"9 studier · 11 effekter"]],
+    hi:-1,
+    cap:"Längre insatser ger större effekt, men <b>över hälften av samtliga effektstorlekar — 36 av 69 — härrör från endagsinterventioner</b>, den kategori som uppvisar lägst effekt. De långa kategorierna vilar på betydligt tunnare underlag: en vecka på 3 effekter ur 2 studier, en månad på 16 ur 11 och ett år på 11 ur 9."},
+  niva:{title:"Utbildningsnivå",bf:"BF = 3,1",
+    rows:[["Grundskola",0.90,""],["Gymnasium",0.45,""],
+          ["Högskola och universitet",0.42,""],["Vuxna",0.31,""]],
+    hi:-1,
+    cap:"Effekten avtar med stigande ålder. <b>Du läser i kategorin 0,42, inte 0,90.</b> Den siffra som oftast anförs i debatten härrör från yngre elever. Kategorierna är artikelns egna och översatta till svenska skolformer."},
+  teknik:{title:"Teknikgeneration",bf:"BF = 2,7",
+    rows:[["2022",0.38,""],["2023",0.42,""],["2024",0.44,""],["2025",0.89,""]],
+    hi:-1,
+    cap:"Endast anekdotisk evidens, men i förening med att totaleffekten stigit mellan versionerna (0,49 → 0,57) antyds en trend."}
+};
+var modSel="langd";
+function drawMod(){
+  var host=by("fig-mod"); if(!host) return; clear(host);
+  var M=MOD[modSel], n=narrow();
+  var w=940, rowH=46, labW=n?0:200, valW=0;
+  var h=18+M.rows.length*rowH+40;
+  var x=scale(0,1.1,labW+(n?0:12),w-valW-54);
+  var svg=svgBox(w,h);
+
+  if(n){ /* etiketter ovanför staplarna på smal skärm */ }
+  M.rows.forEach(function(r,i){
+    var yTop=10+i*rowH, cy=yTop+(n?30:rowH/2);
+    var isHi=i===M.hi;
+    if(n) svg.appendChild(txt(0,yTop+12,r[0],{size:11.5,weight:isHi?600:400,fill:isHi?C.ink:C.ink2}));
+    else {
+      svg.appendChild(txt(labW-12,cy+1,r[0],{anchor:"end",base:"middle",size:12.5,weight:isHi?600:400,fill:isHi?C.ink:C.ink2}));
+    }
+    var bw=Math.max(2,x(r[1])-x(0));
+    svg.appendChild(S("rect",{x:x(0),y:cy-11,width:bw,height:22,rx:4,
+      style:"fill:"+(M.hi<0?C.orange:(isHi?C.orange:"var(--orange-soft)"))}));
+    svg.appendChild(txt(x(0)+bw+9,cy+1,nf(r[1],2),{base:"middle",size:13,weight:600,fill:C.ink}));
+  });
+  var ay=10+M.rows.length*rowH+12;
+  [0,0.25,0.5,0.75,1].forEach(function(v){
+    svg.appendChild(S("line",{x1:x(v),x2:x(v),y1:12,y2:ay,style:"stroke:"+C.rule+";stroke-width:1"}));
+    svg.appendChild(txt(x(v),ay+16,nf(v,2),{anchor:"middle",size:11,fill:C.ink3}));
+  });
+  svg.appendChild(txt(x(0.5),ay+34,"Hedges' g",{anchor:"middle",size:11.5,fill:C.ink2}));
+  host.appendChild(svg);
+  by("mod-title").textContent=M.title;
+  by("mod-bf").textContent=M.bf;
+  by("mod-caption").innerHTML=M.cap+'<div class="source">Data: LLAMA LIMA v5, tabell 1.</div>';
+  Array.prototype.forEach.call(document.querySelectorAll("[data-mod]"),function(b){
+    b.setAttribute("aria-pressed",b.getAttribute("data-mod")===modSel?"true":"false");
+  });
+}
+register(drawMod);
+Array.prototype.forEach.call(document.querySelectorAll("[data-mod]"),function(b){
+  b.addEventListener("click",function(){ modSel=b.getAttribute("data-mod"); drawMod(); });
+});
+
+/* ===========================================================
+   6. ROEDIGER & KARPICKE
+   =========================================================== */
+register(function(){
+  var host=by("fig-rk"); if(!host) return; clear(host);
+  var w=940, h=narrow()?280:300, m={t:26,r:24,b:56,l:48};
+  var groups=[{lab:"Test efter 5 minuter",v:[83,71]},{lab:"Test efter 1 vecka",v:[40,61]}];
+  var x=scale(0,1,m.l,w-m.r), y=scale(0,100,h-m.b,m.t);
+  var svg=svgBox(w,h);
+  for(var v=0;v<=100;v+=25){
+    svg.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(v),y2:y(v),style:"stroke:"+C.rule+";stroke-width:1"}));
+    svg.appendChild(txt(m.l-9,y(v),v+" %",{anchor:"end",base:"middle",size:11,fill:C.ink3}));
+  }
+  var gw=(w-m.r-m.l)/2, bw=Math.min(96,gw/3.4);
+  groups.forEach(function(G,gi){
+    var cx=m.l+gw*gi+gw/2;
+    G.v.forEach(function(val,si){
+      var bx=cx-bw-7+si*(bw+14);
+      svg.appendChild(S("rect",{x:bx,y:y(val),width:bw,height:y(0)-y(val),rx:4,
+        style:"fill:"+(si?C.orange:C.slate)}));
+      svg.appendChild(txt(bx+bw/2,y(val)-9,val+" %",{anchor:"middle",size:14,weight:600,fill:C.ink}));
+    });
+    svg.appendChild(txt(cx,y(0)+22,G.lab,{anchor:"middle",size:12.5,fill:C.ink2}));
+  });
+  svg.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(0),y2:y(0),style:"stroke:"+C.rule2+";stroke-width:1.2"}));
+  svg.appendChild(S("line",{x1:m.l+gw,x2:m.l+gw,y1:m.t,y2:y(0),style:"stroke:"+C.rule+";stroke-width:1;stroke-dasharray:3 3"}));
+  svg.appendChild(txt(m.l,h-12,"Andel av materialet som deltagarna kunde återge vid testet",{size:11.5,fill:C.ink3}));
+  host.appendChild(svg);
+  var L=by("rk-legend"); if(L){ clear(L);
+    [["Omläsning",C.slate],["Framplockning",C.orange]].forEach(function(it){
+      L.appendChild(H("span",{},[H("i",{class:"swatch",style:"background:"+it[1]}),document.createTextNode(it[0])]));
+    });
+  }
+});
+
+/* ===========================================================
+   7. GLÖMSKEKURVAN MED REPETITION
+   =========================================================== */
+var S0=6, DAYS=30;
+function drawForget(){
+  var host=by("fig-forget"); if(!host) return; clear(host);
+  var gap=+by("gap-slider").value;
+  var w=940, h=narrow()?260:300, m={t:26,r:24,b:48,l:48};
+  var x=scale(0,DAYS,m.l,w-m.r), y=scale(0,1.04,h-m.b,m.t);
+  var svg=svgBox(w,h);
+  [0,0.25,0.5,0.75,1].forEach(function(v){
+    svg.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(v),y2:y(v),style:"stroke:"+C.rule+";stroke-width:1"}));
+    svg.appendChild(txt(m.l-9,y(v),Math.round(v*100)+" %",{anchor:"end",base:"middle",size:11,fill:C.ink3}));
+  });
+  for(var d=0;d<=DAYS;d+=5){
+    svg.appendChild(S("line",{x1:x(d),x2:x(d),y1:y(0),y2:y(0)+5,style:"stroke:"+C.rule2+";stroke-width:1"}));
+    svg.appendChild(txt(x(d),y(0)+19,String(d),{anchor:"middle",size:11,fill:C.ink3}));
+  }
+  svg.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(0),y2:y(0),style:"stroke:"+C.rule2+";stroke-width:1"}));
+  svg.appendChild(txt((m.l+w-m.r)/2,h-12,"Dagar efter första inlärningstillfället",{anchor:"middle",size:12,fill:C.ink2}));
+
+  function path(fn,a,b){
+    var pts=[],t;
+    for(t=a;t<=b+0.001;t+=0.25) pts.push([x(t),y(Math.max(0,Math.min(1,fn(t))))]);
+    return pts.map(function(p,i){return (i?"L":"M")+p[0].toFixed(2)+" "+p[1].toFixed(2);}).join(" ");
+  }
+  /* utan repetition */
+  svg.appendChild(S("path",{d:path(function(t){return Math.exp(-t/S0);},0,DAYS),
+    style:"fill:none;stroke:"+C.ink3+";stroke-width:1.6;stroke-dasharray:4 4"}));
+  svg.appendChild(txt(x(DAYS)-4,y(Math.exp(-DAYS/S0))-10,"ingen repetition",{anchor:"end",size:11,fill:C.ink3}));
+
+  var r=Math.exp(-gap/S0);
+  var boost=1+5*(1-r)*Math.sqrt(r);
+  var S1=S0*boost;
+  var end=Math.exp(-(DAYS-gap)/S1);
+
+  svg.appendChild(S("path",{d:path(function(t){return Math.exp(-t/S0);},0,gap),
+    style:"fill:none;stroke:"+C.orange+";stroke-width:2.8;stroke-linecap:round"}));
+  if(gap>0){
+    svg.appendChild(S("line",{x1:x(gap),x2:x(gap),y1:y(r),y2:y(1),style:"stroke:"+C.orange+";stroke-width:2.8;stroke-linecap:round"}));
+  }
+  svg.appendChild(S("path",{d:path(function(t){return Math.exp(-(t-gap)/S1);},gap,DAYS),
+    style:"fill:none;stroke:"+C.orange+";stroke-width:2.8;stroke-linecap:round"}));
+  svg.appendChild(S("circle",{cx:x(gap),cy:y(r),r:5,style:"fill:var(--surface);stroke:"+C.orange+";stroke-width:2.4"}));
+  svg.appendChild(S("circle",{cx:x(gap),cy:y(1),r:5,style:"fill:"+C.orange+";stroke:var(--surface);stroke-width:2"}));
+  svg.appendChild(txt(x(gap)+9,y(1)-8,"repetition",{size:11.5,weight:600,fill:C.orange}));
+  svg.appendChild(S("circle",{cx:x(DAYS),cy:y(end),r:5,style:"fill:"+C.orange+";stroke:var(--surface);stroke-width:2"}));
+
+  host.appendChild(svg);
+  by("gap-val").textContent=gap;
+  by("forget-readout").innerHTML=
+    "<span>Återstående behållning vid repetitionen: <b>"+Math.round(r*100)+" %</b></span>"+
+    "<span>Avklingningen blir därefter <b>"+nf(boost,1)+"×</b> långsammare</span>"+
+    "<span>Behållning efter 30 dagar: <b>"+Math.round(end*100)+" %</b> mot "+Math.round(Math.exp(-DAYS/S0)*100)+" % utan repetition</span>";
+}
+if(by("gap-slider")){
+  register(drawForget);
+  by("gap-slider").addEventListener("input",drawForget);
+}
+
+/* ===========================================================
+   8. BENNOUN — design, resultat, interaktion, grupper
+   =========================================================== */
+register(function(){
+  var host=by("fig-design"); if(!host) return; clear(host);
+  var n=narrow(), w=940, h=n?330:270;
+  var svg=svgBox(w,h);
+  var m={l:n?0:96,t:26};
+  var colW=(w-m.l-16)/2;
+
+  svg.appendChild(txt(m.l,14,"VECKA 1–4",{size:10,ls:".12em",fill:C.ink3}));
+  svg.appendChild(txt(m.l+colW+16,14,"VECKA 5–8",{size:10,ls:".12em",fill:C.ink3}));
+  [["Sektion A",["Blandat + spritt","Blockat"]],["Sektion B",["Blockat","Blandat + spritt"]]].forEach(function(row,i){
+    var yy=m.t+i*62;
+    if(!n) svg.appendChild(txt(m.l-14,yy+22,row[0],{anchor:"end",base:"middle",size:13,weight:600,fill:C.ink}));
+    else svg.appendChild(txt(m.l,yy-4,row[0],{size:12,weight:600,fill:C.ink}));
+    row[1].forEach(function(lbl,j){
+      var mixed=lbl.charAt(0)==="B"&&lbl.indexOf("landat")>0;
+      svg.appendChild(S("rect",{x:m.l+j*(colW+16),y:yy+(n?2:0),width:colW,height:44,rx:6,
+        style:"fill:"+(mixed?"var(--orange-wash)":"var(--slate-wash)")+";stroke:"+(mixed?C.orange:C.slate)+";stroke-width:1.5"}));
+      svg.appendChild(txt(m.l+j*(colW+16)+colW/2,yy+(n?26:22),lbl,
+        {anchor:"middle",base:"middle",size:12.5,weight:600,fill:mixed?C.orange:C.slate}));
+    });
+  });
+  var ey=m.t+124+(n?6:0);
+  svg.appendChild(S("line",{x1:m.l,x2:w-16,y1:ey,y2:ey,style:"stroke:"+C.rule2+";stroke-width:1"}));
+  [[m.l+colW,"Mittermin"],[w-16,"Slutexamen"]].forEach(function(p){
+    svg.appendChild(S("line",{x1:p[0],x2:p[0],y1:ey-6,y2:ey+6,style:"stroke:"+C.ink+";stroke-width:2"}));
+    svg.appendChild(txt(p[0],ey+21,p[1],{anchor:"end",size:12,weight:600,fill:C.ink}));
+  });
+  /* blockat vs blandat-remsa */
+  var sy=ey+44, cell=n?16:22, cg=3;
+  var topics=["A","B","C","D"];
+  var cols=[C.slate,C.blue,C.orange,"var(--orange-soft)"];
+  svg.appendChild(txt(m.l,sy-8,"EN INLÄMNING, BLOCKAT",{size:10,ls:".1em",fill:C.ink3}));
+  topics.forEach(function(t,ti){
+    for(var k=0;k<3;k++){
+      var bx=m.l+(ti*3+k)*(cell+cg);
+      svg.appendChild(S("rect",{x:bx,y:sy,width:cell,height:cell*1.25,rx:2,style:"fill:"+cols[ti]+";opacity:"+(0.55+k*0.15)}));
+      svg.appendChild(txt(bx+cell/2,sy+cell*0.78,t,{anchor:"middle",base:"middle",size:10,weight:600,fill:"var(--surface)"}));
+    }
+  });
+  var sy2=sy+cell*1.25+26;
+  svg.appendChild(txt(m.l,sy2-8,"EN INLÄMNING, BLANDAT",{size:10,ls:".1em",fill:C.ink3}));
+  var mix=[2,1,0,3,1,3,2,0,3,0,2,1];
+  mix.forEach(function(ti,k){
+    var bx=m.l+k*(cell+cg);
+    svg.appendChild(S("rect",{x:bx,y:sy2,width:cell,height:cell*1.25,rx:2,style:"fill:"+cols[ti]+";opacity:.85"}));
+    svg.appendChild(txt(bx+cell/2,sy2+cell*0.78,topics[ti],{anchor:"middle",base:"middle",size:10,weight:600,fill:"var(--surface)"}));
+  });
+  svg.setAttribute("viewBox","0 0 "+w+" "+(sy2+cell*1.25+16));
+  host.appendChild(svg);
+});
+
+register(function(){
+  var host=by("fig-bennoun"); if(!host) return; clear(host);
+  var w=940, h=narrow()?250:230, m={t:44,r:narrow()?20:150,b:46,l:narrow()?96:150};
+  var rows=[{lab:"Mittermin",b:79.5,x2:77.8,sig:"d = 0,11 · ej signifikant"},
+            {lab:"Slutexamen",b:83.1,x2:87.9,sig:"d = 0,32 · p < 0,001"}];
+  var x=scale(74,91,m.l,w-m.r);
+  var svg=svgBox(w,h);
+  for(var v=75;v<=90;v+=5){
+    svg.appendChild(S("line",{x1:x(v),x2:x(v),y1:m.t-18,y2:h-m.b,style:"stroke:"+C.rule+";stroke-width:1"}));
+    svg.appendChild(txt(x(v),h-m.b+17,v+" %",{anchor:"middle",size:11,fill:C.ink3}));
+  }
+  rows.forEach(function(r,i){
+    var cy=m.t+i*62;
+    svg.appendChild(txt(m.l-16,cy,r.lab,{anchor:"end",base:"middle",size:14,weight:600,fill:C.ink}));
+    svg.appendChild(S("line",{x1:x(Math.min(r.b,r.x2)),x2:x(Math.max(r.b,r.x2)),y1:cy,y2:cy,
+      style:"stroke:"+C.rule2+";stroke-width:3;stroke-linecap:round"}));
+    svg.appendChild(S("circle",{cx:x(r.b),cy:cy,r:8,style:"fill:"+C.slate+";stroke:var(--surface);stroke-width:2"}));
+    svg.appendChild(S("circle",{cx:x(r.x2),cy:cy,r:8,style:"fill:"+C.orange+";stroke:var(--surface);stroke-width:2"}));
+    svg.appendChild(txt(x(r.b),cy-16,nf(r.b,1)+" %",{anchor:"middle",size:12.5,weight:600,fill:C.slate}));
+    svg.appendChild(txt(x(r.x2),cy+26,nf(r.x2,1)+" %",{anchor:"middle",size:12.5,weight:600,fill:C.orange}));
+    svg.appendChild(txt(m.l-16,cy+17,r.sig,{anchor:"end",base:"middle",size:10.5,
+      fill:i?C.orange:C.ink3}));
+  });
+  svg.appendChild(txt(m.l,20,"● Blockat",{size:12,weight:600,fill:C.slate}));
+  svg.appendChild(txt(m.l+92,20,"● Blandat + spritt",{size:12,weight:600,fill:C.orange}));
+  host.appendChild(svg);
+});
+
+register(function(){
+  var host=by("fig-interaction"); if(!host) return; clear(host);
+  var w=940, h=narrow()?300:340, m={t:26,r:narrow()?20:96,b:56,l:52};
+  var x=scale(-2,2,m.l,w-m.r), y=scale(-2.4,2,h-m.b,m.t);
+  var svg=svgBox(w,h);
+  function blk(z){ return -0.2+0.975*z; }
+  function mix(z){ return 0.0575+0.7037*z; }
+  [-2,-1,0,1,2].forEach(function(v){
+    svg.appendChild(S("line",{x1:m.l,x2:w-m.r,y1:y(v),y2:y(v),style:"stroke:"+C.rule+";stroke-width:1"}));
+    svg.appendChild(txt(m.l-9,y(v),nf(v,0),{anchor:"end",base:"middle",size:11,fill:C.ink3}));
+    svg.appendChild(S("line",{x1:x(v),x2:x(v),y1:m.t,y2:h-m.b,style:"stroke:"+C.rule+";stroke-width:1"}));
+    svg.appendChild(txt(x(v),h-m.b+18,nf(v,0),{anchor:"middle",size:11,fill:C.ink3}));
+  });
+  /* område där blandat vinner */
+  var zc=0.95;
+  var poly="M"+x(-2)+" "+y(blk(-2))+"L"+x(zc)+" "+y(blk(zc))+"L"+x(zc)+" "+y(mix(zc))+"L"+x(-2)+" "+y(mix(-2))+"Z";
+  svg.appendChild(S("path",{d:poly,style:"fill:var(--orange-wash);stroke:none"}));
+  svg.appendChild(S("line",{x1:x(-2),x2:x(2),y1:y(blk(-2)),y2:y(blk(2)),style:"stroke:"+C.slate+";stroke-width:2.8"}));
+  svg.appendChild(S("line",{x1:x(-2),x2:x(2),y1:y(mix(-2)),y2:y(mix(2)),style:"stroke:"+C.orange+";stroke-width:2.8"}));
+  svg.appendChild(S("line",{x1:x(zc),x2:x(zc),y1:m.t,y2:h-m.b,style:"stroke:"+C.ink3+";stroke-width:1.4;stroke-dasharray:4 4"}));
+  svg.appendChild(txt(x(zc)-10,h-m.b-34,"83 % av kursdeltagarna",{anchor:"end",size:11.5,fill:C.ink2}));
+  svg.appendChild(txt(x(zc)-10,h-m.b-20,"ligger till vänster om linjen",{anchor:"end",size:11.5,fill:C.ink2}));
+  svg.appendChild(txt(x(-1.85),y(mix(-1.85))-16,"Störst vinst vid svagast utgångsläge",{size:12,weight:600,fill:C.orange}));
+  svg.appendChild(txt((m.l+w-m.r)/2,h-14,"Resultat på mittermin (z-poäng)  ←  sämre      bättre  →",{anchor:"middle",size:12,fill:C.ink2}));
+  svg.appendChild(txt(m.l-9,m.t-10,"Förväntat resultat slutexamen (z)",{size:11,fill:C.ink3}));
+  host.appendChild(svg);
+  var L=by("interact-legend"); if(L){ clear(L);
+    [["Blockat",C.slate],["Blandat + spritt",C.orange]].forEach(function(it){
+      L.appendChild(H("span",{},[H("i",{class:"swatch",style:"background:"+it[1]}),document.createTextNode(it[0])]));
+    });
+  }
+});
+
+register(function(){
+  var host=by("fig-groups"); if(!host) return; clear(host);
+  var rows=[["Algebra 2 eller lägre",1.37,1],["Trigonometri",0.71,1],["Mamma: gymnasium",0.51,1],
+            ["Mamma: ingen gymnasieexamen",0.45,1],["Första i familjen på högskola",0.39,1],["URM",0.35,1],
+            ["Ej URM",0.13,0],["Analys på gymnasiet",0.13,0],["Föräldrar m. högskoleutb.",0.12,0],
+            ["Mamma: forskar-/masternivå",0.09,0]];
+  var n=narrow(), w=940, rowH=n?40:34, labW=n?0:232;
+  var h=14+rows.length*rowH+34;
+  var x=scale(0,1.5,labW+(n?0:12),w-70);
+  var svg=svgBox(w,h);
+  [0,0.5,1,1.5].forEach(function(v){
+    svg.appendChild(S("line",{x1:x(v),x2:x(v),y1:8,y2:14+rows.length*rowH,style:"stroke:"+C.rule+";stroke-width:1"}));
+    svg.appendChild(txt(x(v),14+rows.length*rowH+17,nf(v,1),{anchor:"middle",size:11,fill:C.ink3}));
+  });
+  rows.forEach(function(r,i){
+    var yTop=10+i*rowH, cy=yTop+(n?26:rowH/2);
+    if(n) svg.appendChild(txt(0,yTop+11,r[0],{size:11.5,fill:r[2]?C.ink:C.ink2}));
+    else svg.appendChild(txt(labW-12,cy+1,r[0],{anchor:"end",base:"middle",size:12,fill:r[2]?C.ink:C.ink2}));
+    var bw=Math.max(2,x(r[1])-x(0));
+    svg.appendChild(S("rect",{x:x(0),y:cy-10,width:bw,height:20,rx:3,
+      style:"fill:"+(r[2]?C.orange:"var(--orange-soft)")}));
+    svg.appendChild(txt(x(0)+bw+9,cy+1,"+"+nf(r[1],2),{base:"middle",size:12.5,weight:600,fill:C.ink}));
+  });
+  svg.appendChild(txt(x(0.75),14+rows.length*rowH+33,"Vinst med blandade läxor på slutexamen (SD)",{anchor:"middle",size:11.5,fill:C.ink2}));
+  host.appendChild(svg);
+});
+
+/* ===========================================================
+   9. FRÅGEMOTOR
+   =========================================================== */
+function shuffle(a){
+  var r=a.slice(),i,j,t;
+  for(i=r.length-1;i>0;i--){ j=Math.floor(Math.random()*(i+1)); t=r[i]; r[i]=r[j]; r[j]=t; }
+  return r;
+}
+function question(item,onDone){
+  var wrap=H("div",{class:"qblock",style:"margin-top:4px"});
+  wrap.appendChild(H("div",{class:"q",html:item.q}));
+  var opts=H("div",{class:"opts"+(item.two?" two":"")});
+  var fb=H("div",{class:"fb",hidden:"hidden"});
+  var choices=item.keepOrder?item.choices:shuffle(item.choices);
+  var answered=false;
+  choices.forEach(function(ch,i){
+    var b=H("button",{class:"opt",type:"button"},[
+      H("span",{class:"mark"},String.fromCharCode(65+i)),
+      H("span",{html:ch.t})
+    ]);
+    b.addEventListener("click",function(){
+      if(answered) return; answered=true;
+      Array.prototype.forEach.call(opts.children,function(o,k){
+        o.disabled=true;
+        if(choices[k].ok) o.className="opt correct";
+        else if(k===i) o.className="opt wrong";
+        else o.className="opt dim";
+      });
+      fb.hidden=false;
+      fb.className="fb "+(ch.ok?"good":"bad");
+      fb.innerHTML=(ch.ok?"<b>Korrekt.</b> ":"<b>Felaktigt.</b> ")+
+        (ch.why||"")+(!ch.ok&&item.answerWhy?" "+item.answerWhy:"");
+      if(item.id){ state["q_"+item.id]=ch.ok?1:0; save(); }
+      if(onDone) onDone(!!ch.ok);
+    });
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  wrap.appendChild(fb);
+  return wrap;
+}
+function quizInto(hostId,items,footId,label){
+  var host=by(hostId); if(!host) return; clear(host);
+  var n=0,ok=0;
+  items.forEach(function(it,i){
+    if(i) host.appendChild(H("hr",{class:"soft",style:"margin:22px 0"}));
+    host.appendChild(question(it,function(good){
+      n++; if(good) ok++;
+      if(footId) by(footId).firstChild.textContent=label+": "+ok+" / "+items.length+"  ("+n+" besvarade)";
+    }));
+  });
+}
+
+/* ---- Del 1: prediktion ---- */
+(function(){
+  var host=by("predict-qs"); if(!host) return;
+  var rows=[
+    {k:"laxpoang",lab:"Läxpoäng",a:"upp"},
+    {k:"laxtid",lab:"Läxtid",a:"ned"},
+    {k:"provpoang",lab:"Provpoäng",a:"ned"}
+  ];
+  var picked={};
+  rows.forEach(function(r){
+    var row=H("div",{style:"display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px"});
+    row.appendChild(H("span",{style:"min-width:98px;font-weight:600"},r.lab));
+    var seg=H("div",{class:"seg"});
+    [["upp","↑ upp"],["oforandrad","→ oförändrad"],["ned","↓ ned"]].forEach(function(o){
+      var b=H("button",{type:"button","aria-pressed":"false"},o[1]);
+      b.addEventListener("click",function(){
+        picked[r.k]=o[0];
+        Array.prototype.forEach.call(seg.children,function(c){ c.setAttribute("aria-pressed","false"); });
+        b.setAttribute("aria-pressed","true");
+        by("predict-hint").textContent=Object.keys(picked).length<3?
+          "Välj ett alternativ på varje rad.":"Samtliga rader besvarade.";
+      });
+      seg.appendChild(b);
+    });
+    row.appendChild(seg);
+    host.appendChild(row);
+  });
+  by("predict-go").addEventListener("click",function(){
+    var right=rows.filter(function(r){ return picked[r.k]===r.a; }).length;
+    var fb=by("predict-fb");
+    fb.hidden=false;
+    fb.className="fb "+(right===3?"good":"");
+    fb.innerHTML="<b>"+right+" av 3 korrekta.</b> Läxpoängen steg (+18 %), läxtiden minskade (64 → 45 min) och provpoängen sjönk (−20 %). "+
+      "Den tredje raden är den avgörande: de två första måtten framstår under arbetet som framgång.";
+    densStep=2; drawDens();
+    var p=by("fig-dens-panel");
+    if(p&&p.scrollIntoView) p.scrollIntoView({behavior:"smooth",block:"center"});
+  });
+})();
+
+/* ---- ämnestabellen ---- */
+(function(){
+  var tb=by("subject-rows"); if(!tb) return;
+  var rows=[["Samhällsvetenskap",-27],["STEM",-22],["Engelska",-17],["Kinesiska (modersmål)",-9]];
+  rows.forEach(function(r){
+    var tr=H("tr",{});
+    tr.appendChild(H("td",{},r[0]));
+    tr.appendChild(H("td",{class:"n",style:"color:var(--orange);font-weight:600"},r[1]+" %"));
+    var bar=H("td",{style:"width:45%"});
+    var track=H("div",{style:"background:var(--surface-2);border-radius:3px;height:10px;margin-top:5px"});
+    track.appendChild(H("div",{style:"background:var(--orange);height:10px;border-radius:3px;width:"+
+      Math.round(Math.abs(r[1])/27*100)+"%"}));
+    bar.appendChild(track);
+    tr.appendChild(bar);
+    tb.appendChild(tr);
+  });
+})();
+
+/* ---- kontrollfrågor del 1 ---- */
+quizInto("q1-body",[
+  {id:"d1a",q:"Vilken grupp av AI-användare klarade sig <em>bäst</em> på proven?",
+   choices:[
+    {t:"De som behöll samma läxtid som icke-användarna",ok:true,
+     why:"Deras läxpoäng visade att AI använts, men förlusterna var små eller inga. Det är arbetstiden, inte verktyget, som skiljer grupperna åt."},
+    {t:"De som fick högst läxpoäng",
+     why:"Tvärtom var höga läxpoäng i kombination med kort läxtid typiskt för de drabbade."},
+    {t:"De som började använda AI tidigast",
+     why:"Tidig start innebar längre tid för förlusten att ackumuleras."},
+    {t:"De som var högpresterande innan",
+     why:"De högpresterande återfanns tvärtom bland de mest drabbade."}
+   ]},
+  {id:"d1b",q:"Varför framträder effekten på antagningsproven i full omfattning först efter omkring två år, i stället för omedelbart?",
+   choices:[
+    {t:"Färdigheter bygger på varandra — varje uteblivet arbetspass gör nästa material svårare att ta in",ok:true,
+     why:"Det är vad Heckmans dynamiska komplementaritet beskriver. Förlusten ackumuleras i stället för att uppträda omedelbart."},
+    {t:"Eleverna blev successivt mer beroende av AI",
+     why:"Beroendet kan förstärka mönstret, men är inte den förklaring studien anför."},
+    {t:"Antagningsproven mäter andra saker än månadsproven",
+     why:"Samma mönster framträder redan i månadsproven, om än svagare. Tidsfördröjningen är det väsentliga."},
+    {t:"AI-verktygen blev sämre under perioden",
+     why:"Verktygen förbättrades. Straffet minskade dessutom något över tid."}
+   ]}
+],null,null);
+
+/* ---- kontrollfrågor del 2 ---- */
+quizInto("q2-body",[
+  {id:"d2a",q:"Vilka två rader i figuren ska jämföras om du vill isolera vad AI:n i sig tillför?",
+   choices:[
+    {t:"Supplement och standalone",ok:true,
+     why:"I båda utgör AI:n den enda skillnaden mellan grupperna. Samma tillägg mätt i två sammanhang ger 0,88 respektive 0,17."},
+    {t:"Supplement och replacement",
+     why:"Replacement jämför AI mot lärare, vilket är en annan typ av kontrast. Det är just den invändning som inte träffar jämförelsen supplement–standalone."},
+    {t:"Standalone och supported",
+     why:"Supported vilar på en enda studie och bör lämnas utan avseende."},
+    {t:"Replacement och supported",
+     why:"Ingen av dem isolerar AI:ns eget bidrag."}
+   ]},
+  {id:"d2b",q:"Trovärdighetsintervallet för standalone (0,17) rymmer noll. Vad betyder det?",
+   choices:[
+    {t:"Otillräckligt stöd för att det finns en effekt — inte bevis för att den saknas",ok:true,
+     why:"Det är den distinktion den bayesianska modellen är konstruerad för att uttrycka. Slutsatsen att AI saknar verkan på egen hand vore en övertolkning."},
+    {t:"Det är bevisat att AI inte hjälper på egen hand",
+     why:"Det är en övertolkning. Frånvaro av evidens utgör inte evidens för frånvaro."},
+    {t:"Studierna var för dåligt gjorda för att säga något",
+     why:"Frågan gäller inte studiernas kvalitet, utan spridningen och underlaget."},
+    {t:"Effekten är exakt noll",
+     why:"Posteriormedianen är 0,17. Intervallet innebär endast att noll inte kan uteslutas."}
+   ]},
+  {id:"d2c",q:"<span class=\"kbdhint\">Tillbaka till del 1:</span> vad var typiskt för de elever som förlorade mest?",
+   choices:[
+    {t:"Kort läxtid i kombination med höga läxpoäng",ok:true,
+     why:"Det är <em>homework outsourcing</em>, vilket omfattade 81 % av AI-användarna. Att frågan återkommer här, långt efter del 1, är fördelad repetition i praktiken."},
+    {t:"Låga läxpoäng och lång läxtid",
+     why:"Det beskriver snarast den som arbetar utan AI, och den gruppen klarade sig bättre."},
+    {t:"De använde AI till alla ämnen",
+     why:"Ämnesbredden var inte det som utmärkte gruppen."},
+    {t:"De var lågpresterande från början",
+     why:"Tvärtom förlorade de högpresterande mest."}
+   ]}
+],null,null);
+
+/* ===========================================================
+   10. MELLANSPEL — sorteringsövning
+   =========================================================== */
+var SORT=[
+  {t:"AI:n löser veckans inlämningsuppgift åt dig.",a:"larande",
+   why:"Hela uppgiften utgjorde arbetet. Detta är Strömbergs outsourcing i renodlad form."},
+  {t:"AI:n formaterar din tabell rätt i LaTeX.",a:"kostnad",
+   why:"Ingen tentamen examinerar placeringen av &-tecken. Ren kostnad, som verktyget rimligen kan överta."},
+  {t:"AI:n sammanfattar kapitlet som du skulle ha läst.",a:"larande",
+   why:"Sammanfattningen är resultatet av läsningen. Erhålls den utan eget arbete bortfaller just det arbete som byggde förståelsen."},
+  {t:"AI:n hittar det saknade semikolonet som gör att din kod inte kompilerar.",a:"kostnad",
+   why:"Syntaxfelsökning är sällan det kursen examinerar. Kostnad."},
+  {t:"Du löser uppgiften själv och ber sedan AI:n granska ditt resonemang.",a:"kostnad",
+   why:"Arbetet är redan utfört. Detta är det närmaste supplement-läget som kan uppnås på egen hand, och den mest ändamålsenliga användningen av verktyget."},
+  {t:"Du fastnar, och ber om svaret efter trettio sekunder.",a:"larande",
+   why:"Den ansträngda framplockningen är själva inlärningssituationen. Trettio sekunder är otillräckligt för att den ska hinna inledas."},
+  {t:"AI:n genererar tolv blandade övningsuppgifter från kapitel 1–5.",a:"kostnad",
+   why:"Att lokalisera uppgifter bygger ingen förmåga; att lösa dem gör det. Uppsättningen blir dessutom blandad, vilket är vad del 3 rekommenderar."},
+  {t:"AI:n skriver om tre meningar i din labbrapport så att engelskan blir korrekt.",a:"kostnad",
+   why:"Om kursen inte examinerar engelsk grammatik rör det sig om kostnad. I en språkkurs vore svaret det motsatta; det är sammanhanget som avgör."}
+];
+(function(){
+  var host=by("sort-body"); if(!host) return;
+  function render(){
+    clear(host);
+    var done=0,right=0;
+    host.appendChild(H("div",{class:"q"},"Avlägsnar AI-användningen arbete som byggde en förmåga, eller arbete som enbart utgjorde kostnad?"));
+    SORT.forEach(function(it,i){
+      var row=H("div",{style:"display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--rule)"});
+      row.appendChild(H("div",{style:"flex:1 1 230px;min-width:200px;line-height:1.45"},it.t));
+      var bts=H("div",{class:"btnrow",style:"flex:0 0 auto"});
+      var fb=H("div",{class:"fb",hidden:"hidden",style:"flex:1 1 100%;margin-top:4px"});
+      [["larande","Avlägsnade lärandet"],["kostnad","Avlägsnade endast kostnad"]].forEach(function(o){
+        var b=H("button",{class:"btn",type:"button",style:"font-size:13px;padding:7px 11px"},o[1]);
+        b.addEventListener("click",function(){
+          if(state["sort_"+i]!==undefined) return;
+          state["sort_"+i]=o[0]===it.a?1:0; save();
+          render();
+        });
+        if(state["sort_"+i]!==undefined){
+          b.disabled=true;
+          if(o[0]===it.a) b.className="btn on";
+        }
+        bts.appendChild(b);
+      });
+      row.appendChild(bts);
+      if(state["sort_"+i]!==undefined){
+        done++; if(state["sort_"+i]) right++;
+        fb.hidden=false;
+        fb.className="fb "+(state["sort_"+i]?"good":"bad");
+        fb.innerHTML=(state["sort_"+i]?"<b>Korrekt.</b> ":"<b>Felaktigt.</b> ")+it.why;
+        row.appendChild(fb);
+      }
+      host.appendChild(row);
+    });
+    by("sort-score").textContent=right+" / "+SORT.length+(done<SORT.length?"  ·  "+(SORT.length-done)+" återstår":"  ·  samtliga besvarade");
+  }
+  render();
+  by("sort-reset").addEventListener("click",function(){
+    SORT.forEach(function(_,i){ delete state["sort_"+i]; }); save(); render();
+  });
+})();
+
+/* ===========================================================
+   11. FRAMPLOCKNINGSÖVNING
+   =========================================================== */
+(function(){
+  var host=by("retrieval-body"); if(!host) return;
+  var DEF='En funktion <span class="math">f : A → B</span> är <b>injektiv</b> om <span class="math">f(x₁) = f(x₂)</span> medför <span class="math">x₁ = x₂</span> — olika invärden ger olika värden. '+
+          'Den är <b>surjektiv</b> om varje <span class="math">y</span> i målmängden <span class="math">B</span> träffas av minst ett <span class="math">x</span>, det vill säga <span class="math">V<sub>f</sub> = B</span>. '+
+          'Är den både injektiv och surjektiv kallas den <b>bijektiv</b>, och först då finns en invers <span class="math">f<sup>−1</sup> : B → A</span>.';
+  var KEYS=["Injektiv: f(x₁) = f(x₂) ⟹ x₁ = x₂","Surjektiv: varje y i B träffas, V_f = B",
+            "Bijektiv = injektiv och surjektiv","Inversen finns först när funktionen är bijektiv"];
+  var phase="idle",timer=null,left=20;
+  function render(){
+    clear(host);
+    if(phase==="idle"){
+      host.appendChild(H("div",{class:"q"},"Definitionen visas i tjugo sekunder. Läs den som du normalt läser kurslitteratur. Därefter döljs den."));
+      var b=H("button",{class:"btn primary",type:"button"},"Visa definitionen");
+      b.addEventListener("click",function(){ phase="show"; left=20; render(); tick(); });
+      host.appendChild(H("div",{class:"btnrow"},b));
+    }
+    else if(phase==="show"){
+      host.appendChild(H("div",{class:"fb",html:DEF}));
+      host.appendChild(H("div",{class:"readout"},[
+        H("span",{html:"Försvinner om <b id=\"rt-left\">"+left+"</b> sekunder"})
+      ]));
+      var sk=H("button",{class:"btn",type:"button"},"Dölj nu");
+      sk.addEventListener("click",function(){ clearInterval(timer); phase="recall"; render(); });
+      host.appendChild(H("div",{class:"btnrow"},sk));
+    }
+    else if(phase==="recall"){
+      host.appendChild(H("div",{class:"q"},"Skriv ned allt du minns, även det du är osäker på. Det är framplockningsförsöket som är verksamt, inte träffsäkerheten."));
+      var ta=H("textarea",{id:"rt-text",rows:"6",placeholder:"Injektiv betyder att…",
+        style:"width:100%;font-family:var(--sans);font-size:15px;line-height:1.5;padding:12px;border-radius:8px;border:1px solid var(--rule-2);background:var(--surface);color:var(--ink);resize:vertical"});
+      try{ if(state.rt_text) ta.value=state.rt_text; }catch(e){}
+      host.appendChild(ta);
+      var b=H("button",{class:"btn primary",type:"button"},"Visa facit");
+      b.addEventListener("click",function(){
+        state.rt_text=ta.value; save(); phase="check"; render();
+      });
+      host.appendChild(H("div",{class:"btnrow"},b));
+    }
+    else{
+      host.appendChild(H("div",{class:"q"},"Jämför med facit och markera de moment du fick med."));
+      var list=H("div",{style:"display:grid;gap:8px"});
+      KEYS.forEach(function(k,i){
+        var id="rtk"+i;
+        var lab=H("label",{for:id,style:"display:flex;gap:10px;align-items:flex-start;font-size:15px;font-family:var(--sans);cursor:pointer;background:var(--surface-2);padding:10px 13px;border-radius:7px"});
+        var cb=H("input",{type:"checkbox",id:id,style:"accent-color:var(--orange);margin-top:3px"});
+        if(state["rtk"+i]) cb.checked=true;
+        cb.addEventListener("change",function(){ state["rtk"+i]=cb.checked?1:0; save(); });
+        lab.appendChild(cb); lab.appendChild(H("span",{class:"mono",html:k}));
+        list.appendChild(lab);
+      });
+      host.appendChild(list);
+      host.appendChild(H("div",{class:"fb",html:"<b>Facit.</b> "+DEF}));
+      if(state.rt_text) host.appendChild(H("div",{class:"readout",style:"display:block;white-space:pre-wrap;line-height:1.5"},
+        "Ditt försök: "+state.rt_text));
+      host.appendChild(H("div",{class:"fb good",html:
+        "Det verksamma momentet inträffade <b>före</b> facit. Tomheten, sökandet och det ofullständiga svaret utgjorde framplockningen, och den förändrade minnet. "+
+        "Förnyad läsning av definitionen hade gett högre upplevd säkerhet och lägre behållning om en vecka."}));
+      var b=H("button",{class:"btn",type:"button"},"Gör om");
+      b.addEventListener("click",function(){
+        KEYS.forEach(function(_,i){ delete state["rtk"+i]; }); delete state.rt_text; save();
+        phase="idle"; render();
+      });
+      host.appendChild(H("div",{class:"btnrow"},b));
+    }
+  }
+  function tick(){
+    clearInterval(timer);
+    timer=setInterval(function(){
+      left--;
+      var el=by("rt-left"); if(el) el.textContent=left;
+      if(left<=0){ clearInterval(timer); phase="recall"; render(); }
+    },1000);
+  }
+  render();
+})();
+
+/* ===========================================================
+   12. REPETITIONSSCHEMA
+   =========================================================== */
+(function(){
+  var host=by("schedule-body"); if(!host) return;
+  var MONTHS=["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
+  function fmt(d){ return d.getDate()+" "+MONTHS[d.getMonth()]; }
+  function addDays(d,n){ var x=new Date(d.getTime()); x.setDate(x.getDate()+n); return x; }
+  function iso(d){ return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+
+  var today=new Date(); today.setHours(12,0,0,0);
+  var defExam=addDays(today,56);
+  var topicsDefault="Logik och mängdlära\nAnalytisk geometri och kägelsnitt\nAlgebra, ekvationer och olikheter\nKomplexa tal\nFunktionslära och inversa funktioner\nElementära funktioner och trigonometri\nGränsvärden och kontinuitet\nDerivata och deriveringsregler\nFunktionsstudier och extremvärden\nTaylorpolynom och l'Hospitals regler";
+
+  /* Standardvärden sparas aldrig — bara det användaren själv ändrat.
+     Annars fryser verktyget den lista som råkade gälla vid första besöket. */
+  var sv=state.sch_edited?state:{};
+  var controls=H("div",{style:"display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px"});
+  var dIn=H("input",{type:"date",id:"sch-date",value:sv.sch_date||iso(defExam),
+    style:"width:100%;font-family:var(--mono);font-size:14px;padding:9px 11px;border-radius:7px;border:1px solid var(--rule-2);background:var(--surface);color:var(--ink)"});
+  var tIn=H("textarea",{id:"sch-topics",rows:"8",
+    style:"width:100%;font-family:var(--sans);font-size:14px;line-height:1.5;padding:10px 12px;border-radius:7px;border:1px solid var(--rule-2);background:var(--surface);color:var(--ink);resize:vertical"});
+  tIn.value=sv.sch_topics||topicsDefault;
+  controls.appendChild(H("label",{style:"font-family:var(--sans);font-size:13.5px;color:var(--ink-2)"},
+    [document.createTextNode("Datum för tentamen"),H("div",{style:"margin-top:6px"},dIn)]));
+  controls.appendChild(H("label",{style:"font-family:var(--sans);font-size:13.5px;color:var(--ink-2)"},
+    [document.createTextNode("Moment, ett per rad"),H("div",{style:"margin-top:6px"},tIn)]));
+  host.appendChild(controls);
+  var out=H("div",{});
+  host.appendChild(out);
+
+  function build(){
+    clear(out);
+    var exam=new Date(dIn.value+"T12:00:00");
+    if(isNaN(exam.getTime())){ out.appendChild(H("div",{class:"fb bad"},"Välj ett giltigt datum.")); return; }
+    var topics=tIn.value.split("\n").map(function(s){return s.trim();}).filter(Boolean);
+    var D=Math.round((exam-today)/86400000);
+    if(topics.length===0){ out.appendChild(H("div",{class:"fb"},"Ange minst ett moment.")); return; }
+    if(D<7){ out.appendChild(H("div",{class:"fb bad"},"<b>Mindre än en vecka återstår.</b> Utrymme för fördelad inlärning saknas därmed. Tillämpa i stället framplockning i stället för omläsning och blanda momenten; del 3.1 och 3.3 är fortfarande tillämpliga.")); return; }
+
+    /* momenten introduceras jämnt över de första 70 % av tiden */
+    var intro=topics.map(function(_,i){ return Math.round(i*(D*0.70)/Math.max(1,topics.length-1||1)); });
+    var gaps=[2,7,21];
+    var events=[];
+    topics.forEach(function(t,i){
+      gaps.forEach(function(g,gi){
+        var day=intro[i]+g;
+        if(day<D-3) events.push({day:day,topic:t,n:gi+1});
+      });
+      events.push({day:D-4+(i%3),topic:t,n:4});
+    });
+    events=events.filter(function(e){ return e.day>=0&&e.day<=D; });
+    events.sort(function(a,b){ return a.day-b.day; });
+
+    var weeks={};
+    events.forEach(function(e){
+      var wk=Math.floor(e.day/7);
+      (weeks[wk]=weeks[wk]||[]).push(e);
+    });
+
+    var tw=H("div",{class:"tablewrap",style:"margin-top:18px"});
+    var tbl=H("table",{});
+    tbl.appendChild(H("thead",{},H("tr",{},[
+      H("th",{style:"width:120px"},"Vecka"),H("th",{},"Repetera"),H("th",{style:"width:110px"},"Pass")
+    ])));
+    var tb=H("tbody",{});
+    var mixedCount=0;
+    Object.keys(weeks).map(Number).sort(function(a,b){return a-b;}).forEach(function(wk){
+      var evs=weeks[wk];
+      var uniq=[];
+      evs.forEach(function(e){ if(uniq.indexOf(e.topic)<0) uniq.push(e.topic); });
+      var mixed=uniq.length>1;
+      if(mixed) mixedCount++;
+      var tr=H("tr",{class:mixed?"hi":""});
+      tr.appendChild(H("td",{class:"n"},fmt(addDays(today,wk*7))+"–"+fmt(addDays(today,wk*7+6))));
+      tr.appendChild(H("td",{},uniq.join(" · ")));
+      tr.appendChild(H("td",{class:"n",style:mixed?"color:var(--orange);font-weight:600":"color:var(--ink-3)"},
+        mixed?"blandat":"enkelt"));
+      tb.appendChild(tr);
+    });
+    var tr2=H("tr",{style:"border-top:2px solid var(--rule-2)"});
+    tr2.appendChild(H("td",{class:"n",style:"font-weight:600"},fmt(exam)));
+    tr2.appendChild(H("td",{style:"font-weight:600"},"Tenta"));
+    tr2.appendChild(H("td",{}));
+    tb.appendChild(tr2);
+    tbl.appendChild(tb);
+    tw.appendChild(tbl);
+    out.appendChild(tw);
+    out.appendChild(H("div",{class:"fb",html:
+      "<b>"+events.length+" repetitionstillfällen fördelade över "+D+" dagar.</b> Varje moment återkommer fyra gånger med växande mellanrum: 2 dagar, 1 vecka, 3 veckor och en sista gång inför tentamen. "+
+      "Notera de <b>"+mixedCount+" markerade veckorna</b>, där flera moment sammanfaller i samma pass. Det är inte en brist i schemat utan interfoliering. Genomför passet blandat i stället för ett moment i taget."}));
+    out.appendChild(H("div",{class:"source",style:"margin-top:10px"},
+      "Mellanrummen är ett växande schema i linje med Cepeda m.fl. (2008). Schemat anger när repetitionen bör ske, inte hur länge den bör pågå."));
+  }
+  function touch(){
+    state.sch_edited=1; state.sch_date=dIn.value; state.sch_topics=tIn.value; save();
+  }
+  dIn.addEventListener("change",function(){ touch(); build(); });
+  tIn.addEventListener("input",function(){
+    clearTimeout(tIn._t);
+    tIn._t=setTimeout(function(){ touch(); build(); },400);
+  });
+  build();
+})();
+
+/* ===========================================================
+   13. BLOCKAT MOT BLANDAT
+   =========================================================== */
+var RULES=["Ingen — direkt insättning","Faktorisering och förkortning","Konjugatförlängning","Omskrivning till standardgränsvärde"];
+/* Pass 1 frågar efter själva utförandet, aldrig efter metodvalet —
+   rubriken har redan angett omskrivningen. */
+var IL_BLOCK=[
+  {h:"Faktorisering och förkortning", lim:"x→2", e:"(x² − 4)/(x − 2)",
+   q:"Faktorisera täljaren.",
+   o:["(x − 2)(x + 2)","(x − 4)(x + 1)","x(x − 4)","(x − 2)²"], a:0},
+  {h:null, lim:"x→3", e:"(x² − 5x + 6)/(x − 3)",
+   q:"Faktorisera täljaren.",
+   o:["(x − 2)(x − 3)","(x + 2)(x + 3)","(x − 1)(x − 6)","(x − 5)(x + 6)"], a:0},
+  {h:null, lim:"x→−1", e:"(x² − 1)/(x + 1)",
+   q:"Vad återstår efter förkortning?",
+   o:["x − 1","x + 1","x² − 1","1"], a:0},
+  {h:"Konjugatförlängning", lim:"x→0", e:"(√(x + 4) − 2)/x",
+   q:"Med vilket uttryck förlänger du?",
+   o:["√(x + 4) + 2","√(x + 4) − 2","√(x − 4) + 2","x + 2"], a:0},
+  {h:null, lim:"x→0", e:"(√(1 + x) − 1)/x",
+   q:"Vad blir täljaren efter förlängningen?",
+   o:["x","1 + x","x²","2√(1 + x)"], a:0},
+  {h:null, lim:"x→9", e:"(√x − 3)/(x − 9)",
+   q:"Vad återstår efter förkortning?",
+   o:["1/(√x + 3)","√x + 3","1/(√x − 3)","x − 9"], a:0}
+];
+/* Pass 2 = pass 1 plus ett steg: först välja omskrivning, sedan utföra den.
+   Skillnaden mot pass 1 är därmed just urskiljningen. */
+var IL_MIX=[
+  {lim:"x→0", e:"sin 3x / x", r:3,
+   q:"Hur skriver du om för att kunna använda lim(u→0) sin u / u = 1?",
+   o:["3 · sin 3x / (3x)","sin 3x / (3x)","(1/3) · sin 3x / (3x)","3 · sin x / x"], a:0},
+  {lim:"x→1", e:"(x² + 3)/(x + 1)", r:0,
+   q:"Vad blir gränsvärdet?",
+   o:["2","4","1","0"], a:0},
+  {lim:"x→4", e:"(x² − 16)/(x − 4)", r:1,
+   q:"Vad återstår efter förkortning?",
+   o:["x + 4","x − 4","x² − 16","1"], a:0},
+  {lim:"x→0", e:"(√(9 + x) − 3)/x", r:2,
+   q:"Med vilket uttryck förlänger du?",
+   o:["√(9 + x) + 3","√(9 + x) − 3","√(9 − x) + 3","x + 3"], a:0},
+  {lim:"x→2", e:"(x³ − 8)/(x − 2)", r:1,
+   q:"Vad återstår efter förkortning?",
+   o:["x² + 2x + 4","x² − 2x + 4","x² + 4","x² − 4"], a:0},
+  {lim:"x→π/2", e:"sin x / x", r:0,
+   q:"Vad blir gränsvärdet?",
+   o:["2/π","1","0","π/2"], a:0}
+];
+(function(){
+  var host=by("interleave-body"), foot=by("interleave-foot"); if(!host) return;
+  var phase=0,idx=0,step=0,answered=false,t0=0;
+  var res={0:{ok:0,t:0},1:{ok:0,pick:0,t:0}};
+  function items(){ return phase===0?IL_BLOCK:IL_MIX; }
+
+  function render(){
+    clear(host); clear(foot);
+    if(phase===2){ summary(); return; }
+    var list=items(), it=list[idx];
+    var choosing=(phase===1&&step===0);
+
+    var head=H("div",{style:"display:flex;gap:12px;align-items:baseline;flex-wrap:wrap"});
+    head.appendChild(H("span",{class:"panel-kicker"},phase===0?"Pass 1 · blockat":"Pass 2 · blandat"));
+    head.appendChild(H("span",{class:"kbdhint",style:"margin-inline-start:auto"},
+      "Uppgift "+(idx+1)+" av "+list.length+(phase===1?" · steg "+(step+1)+" av 2":"")));
+    host.appendChild(head);
+
+    if(phase===0){
+      var cur=null,i;
+      for(i=idx;i>=0;i--){ if(IL_BLOCK[i].h){ cur=IL_BLOCK[i].h; break; } }
+      host.appendChild(H("div",{style:"font-family:var(--serif);font-weight:600;font-size:20px;padding:10px 0 2px;border-bottom:1px solid var(--rule)"},"§ "+cur));
+    }
+    host.appendChild(H("div",{style:"font-family:var(--math);font-size:30px;padding:18px 0 10px;letter-spacing:.01em;line-height:1.35",
+      html:'<span style="font-style:normal">lim</span>'+
+           '<span style="font-size:.48em;vertical-align:-.95em;padding-inline:3px 12px">'+it.lim+'</span>'+it.e}));
+    host.appendChild(H("div",{class:"q"},choosing?"Vilken omskrivning behövs här?":it.q));
+
+    var opts=H("div",{class:"opts two"});
+    var fb=H("div",{class:"fb",hidden:"hidden"});
+    answered=false;
+    if(!t0) t0=Date.now();
+
+    var choices=choosing?RULES:it.o, ans=choosing?it.r:it.a;
+    var order=choosing?choices.map(function(_,i){return i;})
+                      :shuffle(choices.map(function(_,i){return i;}));
+    order.forEach(function(ci,ri){
+      var lbl=choosing?choices[ci]
+        :'<span style="font-family:var(--math);font-size:1.08em">'+choices[ci]+'</span>';
+      var b=H("button",{class:"opt",type:"button"},[
+        H("span",{class:"mark"},String.fromCharCode(65+ri)),H("span",{html:lbl})]);
+      b.addEventListener("click",function(){
+        if(answered) return; answered=true;
+        var good=ci===ans;
+        if(good){ if(choosing) res[1].pick++; else res[phase].ok++; }
+        Array.prototype.forEach.call(opts.children,function(o,k){
+          o.disabled=true;
+          o.className="opt "+(order[k]===ans?"correct":(k===ri?"wrong":"dim"));
+        });
+        fb.hidden=false; fb.className="fb "+(good?"good":"bad");
+        fb.innerHTML=good?"<b>Korrekt.</b>":"<b>Felaktigt.</b> Rätt svar är "+choices[ans]+".";
+        nextBtn.disabled=false; nextBtn.focus();
+      });
+      opts.appendChild(b);
+    });
+    host.appendChild(opts);
+    host.appendChild(fb);
+
+    var last=(idx===list.length-1);
+    var label=choosing?"Utför omskrivningen"
+             :(last?(phase===0?"Avsluta det blockade passet":"Visa jämförelsen"):"Nästa uppgift");
+    var nextBtn=H("button",{class:"btn primary",type:"button",disabled:"disabled"},label);
+    nextBtn.addEventListener("click",function(){
+      if(choosing){ step=1; render(); return; }
+      if(last){
+        res[phase].t=Math.round((Date.now()-t0)/1000); t0=0;
+        phase++; idx=0; step=0;
+        if(phase===1) intro(); else render();
+      }else{ idx++; step=0; render(); }
+    });
+    host.appendChild(H("div",{class:"btnrow"},nextBtn));
+    foot.appendChild(H("span",{},choosing
+      ? "Metodval rätt hittills: "+res[1].pick
+      : "Omskrivningar rätt hittills: "+res[phase].ok));
+  }
+
+  function intro(){
+    clear(host); clear(foot);
+    host.appendChild(H("div",{class:"fb",html:
+      "<b>Pass 1 avslutat: "+res[0].ok+" av 6 omskrivningar rätt på "+res[0].t+" sekunder.</b><br>"+
+      "Du utförde sex omskrivningar, men valde aldrig någon. Rubriken stod över uppgifterna och hade redan avgjort saken."}));
+    host.appendChild(H("div",{class:"q"},
+      "Härnäst följer sex nya gränsvärden utan rubriker. Uppgiften är densamma som nyss, med ett steg före: först avgöra vilken omskrivning som behövs, sedan utföra den."));
+    var b=H("button",{class:"btn primary",type:"button"},"Starta det blandade passet");
+    b.addEventListener("click",function(){ t0=Date.now(); render(); });
+    host.appendChild(H("div",{class:"btnrow"},b));
+  }
+
+  function summary(){
+    clear(host); clear(foot);
+    var p0=(res[0].t/6).toFixed(1).replace(".",","), p1=(res[1].t/6).toFixed(1).replace(".",",");
+    host.appendChild(H("div",{class:"q",style:"font-weight:600"},"Jämförelsen"));
+    var tw=H("div",{class:"tablewrap"});
+    var tbl=H("table",{});
+    tbl.appendChild(H("thead",{},H("tr",{},[H("th",{},"Pass"),H("th",{},"Omskrivning rätt"),
+      H("th",{},"Metodval rätt"),H("th",{},"Tid per uppgift")])));
+    tbl.appendChild(H("tbody",{},[
+      H("tr",{},[H("td",{},"Blockat"),H("td",{class:"n"},res[0].ok+" / 6"),
+                 H("td",{style:"color:var(--ink-3)"},"gavs i rubriken"),H("td",{class:"n"},p0+" s")]),
+      H("tr",{class:"hi"},[H("td",{},"Blandat"),H("td",{class:"n"},res[1].ok+" / 6"),
+                 H("td",{class:"n"},res[1].pick+" / 6"),H("td",{class:"n"},p1+" s")])
+    ]));
+    tw.appendChild(tbl); host.appendChild(tw);
+    host.appendChild(H("div",{class:"fb",html:
+      "<b>Samma omskrivningar, samma sorts uppgifter.</b> Skillnaden mellan raderna är den tomma rutan: i det blockade passet fanns inget metodval att göra, för rubriken hade gjort det. "+
+      "Allt som skiljer passen åt — den extra tiden och de eventuella felen i kolumnen bredvid — är vad urskiljningen kostar. <b>Vid tentamen är den kostnaden alltid med.</b>"}));
+    host.appendChild(H("div",{class:"fb",html:
+      "Notera även den subjektiva upplevelsen: det blandade passet var mer ansträngande. Rohrer och Taylor (2007) fann samma sak. Blockad övning gav bättre resultat "+
+      "<i>vid övningspassets slut</i> och klart sämre resultat vid ett prov en vecka senare. Upplevelsen under passet är alltså en missvisande indikator."}));
+    var b=H("button",{class:"btn",type:"button"},"Genomför på nytt");
+    b.addEventListener("click",function(){
+      phase=0; idx=0; step=0; res={0:{ok:0,t:0},1:{ok:0,pick:0,t:0}}; t0=0; render();
+    });
+    host.appendChild(H("div",{class:"btnrow"},b));
+  }
+
+  render();
+})();
+
+/* ---- prediktion: vid vilket prov ---- */
+(function(){
+  var host=by("predict2-body"); if(!host) return;
+  host.appendChild(question({id:"benn1",
+    q:"Studenterna skrev ett mitterminsprov efter fas 1 och en slutexamen efter fas 2. Var dök skillnaden mellan blockat och blandat upp?",
+    choices:[
+      {t:"Först på slutexamen",ok:true,
+       why:"Ingen huvudeffekt vid mitterminen (d = 0,11), tydlig effekt vid slutexamen (d = 0,32, p < 0,001). Blandad övning kräver tid för att ge utslag, i likhet med mönstret hos Roediger &amp; Karpicke."},
+      {t:"Redan på mitterminen, och höll i sig",
+       why:"Vid mitterminen förelåg ingen huvudeffekt. Det enda som förändrades var skillnaden mellan grupperna."},
+      {t:"Bara på mitterminen, sedan jämnade det ut sig",
+       why:"Tvärtom framträdde skillnaden först vid slutexamen."},
+      {t:"Ingen skillnad någonstans",
+       why:"Vid slutexamen uppgick skillnaden till 4,8 procentenheter, p &lt; 0,001."}
+    ]}));
+})();
+
+/* ---- kontrollfrågor del 3 ---- */
+quizInto("q3-body",[
+  {id:"d3a",q:"Varför är en blockad uppgiftssamling lättare än tentamen, även när uppgifterna är identiska?",
+   choices:[
+    {t:"Rubriken gör metodvalet åt dig, så du övar aldrig det steget",ok:true,
+     why:"Metodvalet är ofta det svåraste steget vid tentamen. Blandad övning återinför det."},
+    {t:"Uppgifterna i boken är enklare än tentamens",
+     why:"I Bennoun-studien användes exakt samma uppgifter i båda villkoren. Endast ordningen skilde."},
+    {t:"Du har facit tillgängligt i boken",
+     why:"Det är ett separat problem, men inte det blockningen avser."},
+    {t:"Du är mindre stressad när du övar",
+     why:"Stress har betydelse, men förklarar inte varför blandad övning av samma uppgifter ger högre tentamensresultat."}
+   ]},
+  {id:"d3b",q:"Varför ger en repetition som kommer direkt efter inlärningen så lite?",
+   choices:[
+    {t:"Inget har hunnit blekna, så ingen ansträngd framplockning krävs",ok:true,
+     why:"Mekanismen är densamma som vid testningseffekten. Är materialet fortfarande tillgängligt återstår inget arbete, och utan arbete uteblir tillskottet."},
+    {t:"Hjärnan behöver sömn mellan passen",
+     why:"Sömn har betydelse, men spacingeffekten framträder även inom samma dygn."},
+    {t:"Du tröttnar på materialet",
+     why:"Motivationen har praktisk betydelse, men är inte den mekanism forskningen anför."},
+    {t:"Korttidsminnet är redan fullt",
+     why:"Det är inte den mekanism glömskekurvan beskriver."}
+   ]},
+  {id:"d3c",q:"Vilka studenter vann mest på blandade läxor i Bennoun-studien?",
+   choices:[
+    {t:"De som låg under eller strax över snittet — omkring 83 % av kursen",ok:true,
+     why:"Interaktionen var tydlig (β = −0,26, p &lt; 0,001), och samma mönster framträdde bland förstagenerationsstudenter och studenter med svagare gymnasiematematik."},
+    {t:"De högpresterande",
+     why:"Den gruppen vann minst, dels till följd av takeffekter, dels för att urskiljningsarbetet redan utfördes på egen hand."},
+    {t:"Alla lika mycket",
+     why:"Samtliga vann något, men vinsten var starkt ojämnt fördelad."},
+    {t:"Bara studenter med analys sedan gymnasiet",
+     why:"Den gruppen vann minst av alla (+0,13 SD). Störst vinst uppvisade studenter med Algebra 2 eller lägre (+1,37 SD)."}
+   ]}
+],null,null);
+
+/* ===========================================================
+   14. PROMPTKORT
+   =========================================================== */
+(function(){
+  var bad=[
+    {l:"Offloading",t:"Lös uppgiften."},
+    {l:"Offloading",t:"Sammanfatta kapitlet."}
+  ];
+  var good=[
+    {l:"Kontext",t:"Kontext: jag läser Matematisk grundkurs och har gått igenom funktionslära, gränsvärden och derivata. Ge mig 12 problem därifrån."},
+    {l:"Testning",t:"Ge mig inte svaret. Ställ frågor som hjälper mig vidare."},
+    {l:"Fördelning över tid",t:"Varje gång jag ber om hjälp med nytt material: lägg till två frågor från något vi gick igenom för minst en vecka sedan."},
+    {l:"Fördelning över tid",t:"Här är materialet. Skapa ett schema där varje moment återkommer tre gånger."},
+    {l:"Interfoliering",t:"Ge mig tre problem som ser likadana ut på ytan men kräver olika metoder."},
+    {l:"Testning",t:"Här är kursens lärandemål och två gamla tentor. Skriv fem nya frågor i samma stil och svårighetsgrad. Inga lösningar."}
+  ];
+  function card(d,isBad){
+    var c=H("div",{class:"pcard"+(isBad?" bad":"")});
+    c.appendChild(H("div",{class:"plabel"},d.l));
+    c.appendChild(H("div",{class:"ptext"},d.t));
+    if(!isBad){
+      var b=H("button",{class:"btn",type:"button",style:"font-size:12px;padding:5px 10px;align-self:flex-start"},"Kopiera");
+      b.addEventListener("click",function(){
+        var done=function(){ b.textContent="Kopierad"; setTimeout(function(){ b.textContent="Kopiera"; },1400); };
+        try{
+          if(navigator.clipboard&&navigator.clipboard.writeText){
+            navigator.clipboard.writeText(d.t).then(done,function(){ fallback(); });
+          }else fallback();
+        }catch(e){ fallback(); }
+        function fallback(){
+          var r=document.createRange(); r.selectNodeContents(c.querySelector(".ptext"));
+          var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+          b.textContent="Markerad — kopiera";
+          setTimeout(function(){ b.textContent="Kopiera"; },2200);
+        }
+      });
+      c.appendChild(b);
+    }
+    return c;
+  }
+  var hb=by("prompts-bad"), hg=by("prompts-good");
+  if(hb) bad.forEach(function(d){ hb.appendChild(card(d,true)); });
+  if(hg) good.forEach(function(d){ hg.appendChild(card(d,false)); });
+})();
+
+/* ===========================================================
+   15. SLUTPROV
+   =========================================================== */
+var FINAL=[
+  {id:"f1",tag:"Del 1",q:"Vilken grupp av AI-användare klarade sig bäst på proven?",
+   choices:[{t:"De som behöll samma läxtid",ok:true,why:"Arbetstiden var den variabel som skilde drabbade från oskadda."},
+            {t:"De som fick högst läxpoäng",why:"Höga läxpoäng i kombination med kort tid var typiskt för de drabbade."},
+            {t:"De som bara använde AI i STEM-ämnen",why:"Ämnesvalet var inte avgörande."},
+            {t:"De som började tidigast",why:"Tidig start innebar längre tid för förlusten att ackumuleras."}]},
+  {id:"f2",tag:"Del 3",q:"Varför ger en repetition direkt efter inlärningen nästan ingenting?",
+   choices:[{t:"Inget har hunnit blekna, så ingen framplockning krävs",ok:true,why:"Utan arbete uteblir tillskottet."},
+            {t:"Hjärnan hinner inte konsolidera",why:"Konsolidering förekommer, men utgör inte spacingeffektens mekanism."},
+            {t:"Du minns redan allt, så det behövs inte",why:"Materialet är tillgängligt <i>nu</i>. Frågan gäller vad som återstår om tre veckor."},
+            {t:"Repetitionen stör det första minnesspåret",why:"Repetitionen stör inte; den tillför för lite, inte för mycket."}]},
+  {id:"f3",tag:"Del 2",q:"Vilka två integrationslägen ska jämföras för att isolera AI:ns eget bidrag?",
+   choices:[{t:"Supplement och standalone",ok:true,why:"I båda utgör AI:n den enda skillnaden mellan grupperna."},
+            {t:"Supplement och replacement",why:"Replacement jämför AI mot lärare, vilket är en annan kontrast."},
+            {t:"Replacement och supported",why:"Ingen av dem isolerar AI:ns bidrag."},
+            {t:"Standalone och supported",why:"Supported vilar på en enda studie."}]},
+  {id:"f4",tag:"Del 1",q:"Hur stor andel av AI-användarna i Strömbergs data betedde sig som <em>homework outsourcers</em>?",
+   choices:[{t:"81 %",ok:true,why:"Mycket kort läxtid i kombination med höga läxpoäng."},
+            {t:"18 %",why:"18 % var ökningen i läxpoäng."},
+            {t:"50 %",why:"Andelen var betydligt högre."},
+            {t:"30 %",why:"30 % var minskningen i läxtid."}]},
+  {id:"f5",tag:"Del 3",q:"När visade sig effekten av blandade läxor i Bennoun-studien?",
+   choices:[{t:"Först på slutexamen",ok:true,why:"d = 0,32, p &lt; 0,001. Vid mitterminen förelåg ingen huvudeffekt."},
+            {t:"Redan på mitterminen",why:"d = 0,11 där, ej signifikant."},
+            {t:"På båda proven lika mycket",why:"Nej, endast vid slutexamen."},
+            {t:"Inte alls, bara på läxorna",why:"Tvärtom gav blandade läxor ofta sämre läxresultat och bättre tentamensresultat."}]},
+  {id:"f6",tag:"Del 2",q:"Standalone-effekten är <span class=\"math\">g</span> = 0,17 med ett intervall som rymmer noll. Vilken slutsats är korrekt?",
+   choices:[{t:"Otillräckligt stöd för en effekt — inte bevis för att den saknas",ok:true,why:"Det är den distinktion den bayesianska modellen är konstruerad för att uttrycka."},
+            {t:"AI utan undervisning är bevisat verkningslöst",why:"En övertolkning. Frånvaro av evidens utgör inte evidens för frånvaro."},
+            {t:"Effekten är exakt noll",why:"Posteriormedianen är 0,17."},
+            {t:"Studierna måste göras om",why:"Slutsatsen gäller vad data stödjer, inte huruvida de är felaktiga."}]},
+  {id:"f7",tag:"Mellanspel",q:"Vilken fråga avgör om en viss AI-användning är ett problem?",
+   choices:[{t:"Tog den bort arbete som byggde något, eller arbete som bara kostade?",ok:true,
+             why:"Allt arbete utgör inte lärande. Formatering och syntaxfel kan verktyget rimligen överta."},
+            {t:"Använde du AI eller inte?",why:"För trubbigt. Metaanalysen visar att verktyget i sig inte är den avgörande faktorn."},
+            {t:"Blev uppgiften rätt?",why:"”Klar och rätt” är just det opålitliga mått del 1 behandlar."},
+            {t:"Hur avancerad var prompten?",why:"AI:ns syfte var ingen moderator (BF = 0,30)."}]},
+  {id:"f8",tag:"Del 3",q:"Varför är en blockad uppgiftssamling lättare än tentamen, även med identiska uppgifter?",
+   choices:[{t:"Rubriken gör metodvalet åt dig",ok:true,why:"Det steget övas aldrig, men examineras alltid."},
+            {t:"Uppgifterna i boken är enklare",why:"I Bennoun användes exakt samma uppgifter."},
+            {t:"Du har mer tid på dig",why:"Tiden förklarar inte skillnaden vid slutexamen."},
+            {t:"Du är mindre stressad",why:"Har betydelse, men utgör inte mekanismen."}]},
+  {id:"f9",tag:"Del 1",q:"Varför växer lärandestraffet under två år i stället för att slå till direkt?",
+   choices:[{t:"Färdigheter föder färdigheter — varje uteblivet arbetspass gör nästa material svårare",ok:true,
+             why:"Dynamisk komplementaritet. Förlusten ackumuleras."},
+            {t:"Eleverna använde AI allt mer",why:"Förstärkande, men inte förklaringen."},
+            {t:"Proven blev svårare med åren",why:"Jämförelsen är mot elever i samma årskurs."},
+            {t:"Effekten är en statistisk artefakt",why:"Det är en rimlig invändning mot effektstorleken, inte mot tidsmönstret."}]},
+  {id:"f10",tag:"Del 2",q:"Den största studien i metaanalysen — Bastani m.fl., N = 943 — gav vilket resultat?",
+   choices:[{t:"<span class=\"math\">g</span> = 0,03, i praktiken ingen effekt",ok:true,
+             why:"Studien är kodad som standalone och är dessutom densamma som Strömberg hänvisar till."},
+            {t:"Den starkaste effekten i hela analysen",why:"Studien påvisade i princip ingen effekt."},
+            {t:"En negativ effekt",why:"Effekten var nära noll, inte negativ."},
+            {t:"Den uteslöts ur analysen",why:"Studien ingår och svarar för drygt en femtedel av deltagarna."}]},
+  {id:"f11",tag:"Del 3",q:"Vilka studenter vann mest på blandade läxor?",
+   choices:[{t:"De som låg under eller strax över snittet",ok:true,why:"83 % av kursdeltagarna återfanns i det intervallet."},
+            {t:"De högpresterande",why:"Den gruppen vann minst."},
+            {t:"Alla lika mycket",why:"Vinsten var starkt ojämnt fördelad."},
+            {t:"Ingen — skillnaden var statistisk",why:"4,8 procentenheter vid slutexamen, p &lt; 0,001."}]},
+  {id:"f12",tag:"Del 2",q:"Vilken moderator var klart starkast i metaanalysen?",
+   choices:[{t:"Integrationsläget — om det finns undervisning att lägga AI:n till",ok:true,
+             why:"BF₁₀ ≈ 1 672, R² = 0,54. Interventionens längd kom därnäst (BF = 15,3)."},
+            {t:"Vad AI:n användes till",why:"BF = 0,30. Evidensen talar <i>emot</i> att moderatorn behövs."},
+            {t:"Om AI-systemet var modifierat",why:"BF = 0,24. Anpassningen i sig har ingen effekt."},
+            {t:"Matematiskt innehållsområde",why:"BF = 0,33."}]}
+];
+(function(){
+  var host=by("final-body"), foot=by("final-foot"); if(!host) return;
+  var items=shuffle(FINAL), n=0, ok=0;
+  foot.appendChild(H("span",{id:"final-score"},"0 / "+items.length+" korrekta"));
+  var rb=H("button",{class:"btn",type:"button",style:"margin-inline-start:auto;font-size:12px;padding:5px 10px"},"Nytt försök");
+  rb.addEventListener("click",function(){
+    items.forEach(function(it){ delete state["q_"+it.id]; }); save();
+    location.reload();
+  });
+  foot.appendChild(rb);
+  items.forEach(function(it,i){
+    if(i) host.appendChild(H("hr",{class:"soft",style:"margin:22px 0"}));
+    host.appendChild(H("div",{class:"panel-kicker",style:"margin-bottom:-6px"},it.tag+" · fråga "+(i+1)+" av "+items.length));
+    host.appendChild(question(it,function(good){
+      n++; if(good) ok++;
+      by("final-score").textContent=ok+" / "+items.length+" korrekta  ·  "+n+" besvarade";
+      if(n===items.length){
+        var msg=ok>=10?"Resultatet tyder på god behållning av samtliga tre delar.":
+                ok>=7?"Återvänd till de avsnitt där svaren var osäkra. Det är där framplockning ger störst utbyte.":
+                      "Återvänd till de avsnitt där svaren var felaktiga, och pröva dig själv på innehållet efteråt utan texten framför dig.";
+        host.appendChild(H("div",{class:"fb "+(ok>=10?"good":""),style:"margin-top:22px",
+          html:"<b>"+ok+" av "+items.length+" korrekta.</b> "+msg+
+          "<br><br>Notera formatet: frågorna presenterades i blandad ordning och långt efter att innehållet lästes. Det är del 3 tillämpad på detta material."}));
+      }
+    }));
+  });
+})();
+
+/* ===========================================================
+   16. NAVIGERING, PROGRESS, NOLLSTÄLLNING
+   =========================================================== */
+(function(){
+  var bar=by("progress"), links=Array.prototype.slice.call(document.querySelectorAll(".navlinks a"));
+  var secs=links.map(function(a){ return by(a.getAttribute("href").slice(1)); });
+  function upd(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    if(bar) bar.style.width=(max>0?Math.min(100,h.scrollTop/max*100):0)+"%";
+    var cur=-1, y=h.scrollTop+160;
+    secs.forEach(function(s,i){ if(s&&s.offsetTop<=y) cur=i; });
+    links.forEach(function(a,i){ a.className=i===cur?"on":""; });
+  }
+  var tick=false;
+  window.addEventListener("scroll",function(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){ upd(); tick=false; });
+  },{passive:true});
+  upd();
+})();
+(function(){
+  var b=by("reset-all"); if(!b) return;
+  b.addEventListener("click",function(){
+    if(b.dataset.armed){ try{ localStorage.removeItem(STORE); }catch(e){} location.reload(); return; }
+    b.dataset.armed="1"; b.textContent="Säker? Klicka igen";
+    setTimeout(function(){ delete b.dataset.armed; b.textContent="Nollställ alla svar på sidan"; },4000);
+  });
+})();
+
+})();
+</script>
+</body>
+</html>
